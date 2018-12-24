@@ -10,7 +10,7 @@
     <packaging>jar</packaging>
 
     <build>
-        <finalName>taskman.jar</finalName>
+        <finalName>taskman2.jar</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

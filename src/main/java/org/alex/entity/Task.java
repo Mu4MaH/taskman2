@@ -5,11 +5,15 @@ import java.util.UUID;
 public class Task {
 
     private String name;
-    private String uid = String.valueOf(UUID.randomUUID());
+    private String uid;
 
-    public Task(){}
+    public Task(){
+        this.name = "default";
+        this.uid = String.valueOf(UUID.randomUUID());
+    }
 
     public Task (String name) {
+        this.uid = String.valueOf(UUID.randomUUID());
         this.name = name;
     }
 

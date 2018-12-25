@@ -1,22 +1,27 @@
 package org.alex.command;
 
 import org.alex.controller.Bootstrap;
+import org.alex.entity.Task;
+import org.alex.repository.ProjectRepository;
+import org.alex.service.TaskService;
+
+import java.util.Scanner;
 
 public class TaskCreateCommand extends AbstractCommand {
 
     final public String description = "Create new Task";
-    final private String command = "task-create";
+    final public String command = "task-create";
 
-    public TaskCreateCommand(Bootstrap bootstrap) {
-        super(bootstrap);
+    final private TaskService taskService = new TaskService();
+    public TaskCreateCommand() {
     }
 
     @Override
     public void execute() {
-        System.out.println(description);
+        taskService.taskRepository.addTask(new Task(new Scanner(System.in).nextLine()));
+        System.out.println("done..");
     }
 
-    @Override
     public String command() {
         return command;
     }

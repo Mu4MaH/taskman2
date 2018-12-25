@@ -2,12 +2,13 @@ package org.alex.repository;
 
 import org.alex.entity.Project;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 public class ProjectRepository {
 
-    private Map<String, Project> projects;
+    private Map<String, Project> projects = new HashMap<>();
     private Project project = new Project();
 
     public void addProject(Project project) {
@@ -15,7 +16,7 @@ public class ProjectRepository {
     }
 
     public void addProject(){
-
+        projects.put(String.valueOf(UUID.randomUUID()), new Project());
     }
 
     public void removeProject(String uid) {

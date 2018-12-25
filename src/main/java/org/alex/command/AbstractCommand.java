@@ -14,7 +14,7 @@ public abstract class AbstractCommand {
 
     String command;
 
-    abstract void execute(ProjectRepository projectRepository);
+    public abstract void execute();
 
 
 }

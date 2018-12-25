@@ -1,23 +1,20 @@
 package org.alex.command;
 
 import org.alex.controller.Bootstrap;
+import org.alex.repository.ProjectRepository;
 
-public class HelpCommand extends AbstractCommand{
+public class HelpCommand extends AbstractCommand {
 
-    final String description="Help topic";
-    final String command="help";
+    final public String description = "Help topic";
+    final public String command = "help";
 
-    public HelpCommand(Bootstrap bootstrap) {
-        super(bootstrap);
+    public HelpCommand() {
     }
 
     @Override
     public void execute() {
-        System.out.println(description);
-    }
+        System.out.println("List of commands: \n help - show this list.\n project-create - create new project. \n project-list - view all projects. \n task-create - create new task.\n task-get - view task by it's name \n quit");
 
-    @Override
-    public String command() {
-        return command;
     }
 }
+

@@ -2,11 +2,12 @@ package org.alex.repository;
 
 import org.alex.entity.Task;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class TaskRepository {
 
-    private Map<String, Task> taskMap;
+    private Map<String, Task> taskMap = new HashMap<>();
     private Task tasks = new Task();
 
     public void addTask (Task task) {
@@ -17,14 +18,15 @@ public class TaskRepository {
         return (Task) taskMap.get(uid);
     }
 
-    public void viewAllTasks () {
-        if (taskMap.isEmpty()) System.out.println("No active tasks.");
+    public Map<String, Task> getAllTasks () {
+        Map<String, Task> output = new HashMap<>();
+        if (taskMap.isEmpty()) return null;
         else {
             int id = 0;
             for (String key : taskMap.keySet())
-                System.out.println(id++ + " " + taskMap.get(key).toString());
+                output.put(key,taskMap.get(key));
         }
-        System.out.println();
+        return output;
     }
 
     public void deleteTask (String uid) {

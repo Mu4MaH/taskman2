@@ -2,12 +2,12 @@ package org.alex.command;
 
 import org.alex.controller.Bootstrap;
 
-public class HelpCommand extends AbstractCommand{
+public class TaskGetCommand extends AbstractCommand {
 
-    final String description="Help topic";
-    final String command="help";
+    final public String description = "List of tasks";
+    final private String command = "task-get";
 
-    public HelpCommand(Bootstrap bootstrap) {
+    public TaskGetCommand(Bootstrap bootstrap) {
         super(bootstrap);
     }
 

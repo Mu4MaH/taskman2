@@ -6,15 +6,23 @@ import org.alex.repository.ProjectRepository;
 import org.alex.repository.TaskRepository;
 
 public class Service {
- Project project;
- Task task;
- TaskRepository taskRepository;
- ProjectRepository projectRepository;
 
+ private ProjectRepository projects = new ProjectRepository();
+ private TaskRepository taskRepository = new TaskRepository();
 
- public void addTask(Task task) {
-
+ public ProjectRepository getProjects() {
+  return projects;
  }
 
+ public void addProject(ProjectRepository projects) {
+  this.projects = projects;
+ }
 
+ public TaskRepository getTaskRepository() {
+  return taskRepository;
+ }
+
+ public void setTaskRepository(TaskRepository taskRepository) {
+  this.taskRepository = taskRepository;
+ }
 }

@@ -4,8 +4,10 @@ import java.util.UUID;
 
 public class Task {
 
-    final private String name;
-    final String uid = String.valueOf(UUID.randomUUID());
+    private String name;
+    private String uid = String.valueOf(UUID.randomUUID());
+
+    public Task(){}
 
     public Task (String name) {
         this.name = name;
@@ -14,4 +16,17 @@ public class Task {
     public String getName() {
         return name;
     }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
 }

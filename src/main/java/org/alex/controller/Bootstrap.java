@@ -12,8 +12,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Bootstrap {
-    TaskService taskService = new TaskService();
-    ProjectService projectService = new ProjectService();
+    public final TaskService taskService = new TaskService();
+    public final ProjectService projectService = new ProjectService();
 
     private final Scanner sc = new Scanner(System.in);
 
@@ -25,27 +25,27 @@ public class Bootstrap {
     TaskGetCommand taskGetCommand = new TaskGetCommand();
     QuitCommand quitCommand = new QuitCommand();
 
-    public void execute() {
+    public void execute() throws Exception {
         this.register();
         System.out.println("-= Task manager v.2.0.0 greets you =-");
         System.out.println("List of commands: \n help - show this list.\n project-create - create new project. \n project-list - view all projects. \n task-create - create new task.\n task-get - view task by it's name \n quit");
         while (true) {
             System.out.print("Enter your command > ");
-            String cmd = sc.nextLine();
+            final String cmd = sc.nextLine();
             if (!commandMap.containsKey(cmd));
             else {
-                commandMap.get(cmd).execute();
+                commandMap.get(cmd).execute(this);
             }
         }
     }
 
     public void register() {
         commandMap.put(helpCommand.command, helpCommand);
-        commandMap.put(projectCreateCommand.command, projectCreateCommand);
-        commandMap.put(projectGetCommand.command, projectGetCommand);
-        commandMap.put(taskCreateCommand.command, taskCreateCommand);
-        commandMap.put(taskGetCommand.command, taskGetCommand);
-        commandMap.put(quitCommand.command,quitCommand);
+        commandMap.put(projectCreateCommand.getCommand(), projectCreateCommand);
+        commandMap.put(projectGetCommand.getCommand(), projectGetCommand);
+        commandMap.put(taskCreateCommand.getCommand(), taskCreateCommand);
+        commandMap.put(taskGetCommand.getCommand(), taskGetCommand);
+        commandMap.put(quitCommand.getCommand(),quitCommand);
     }
 
 

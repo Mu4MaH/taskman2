@@ -8,8 +8,7 @@ import java.util.UUID;
 
 public class ProjectRepository {
 
-    private Map<String, Project> projects = new HashMap<>();
-    private Project project = new Project();
+    private final Map<String, Project> projects = new HashMap<>();
 
     public void addProject(Project project) {
         projects.put(project.getUid(), project);
@@ -29,6 +28,17 @@ public class ProjectRepository {
 
     public Project getProjectByUid(String uid) {
         return projects.get(uid);
+    }
+
+    public HashMap<String, Project> getAllTasks () {
+        Map<java.lang.String, Project> output = new HashMap<>();
+        if (projects.isEmpty()) return (HashMap<java.lang.String, Project>) output;
+        else {
+            int id = 0;
+            for (java.lang.String key : projects.keySet())
+                output.put(key,projects.get(key));
+        }
+        return (HashMap<java.lang.String, Project>) output;
     }
 
 }

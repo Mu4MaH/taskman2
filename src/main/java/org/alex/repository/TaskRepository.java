@@ -7,30 +7,34 @@ import java.util.Map;
 
 public class TaskRepository {
 
-    private Map<String, Task> taskMap = new HashMap<>();
-    private Task tasks = new Task();
+    private final Map<String, Task> taskMap = new HashMap<>();
 
     public void addTask (Task task) {
         taskMap.put(task.getUid(),task);
     }
 
     public Task getTaskByUid (String uid) {
-        return (Task) taskMap.get(uid);
+        return taskMap.get(uid);
     }
 
-    public Map<String, Task> getAllTasks () {
+    public HashMap<String, Task> getAllTasks () {
         Map<String, Task> output = new HashMap<>();
-        if (taskMap.isEmpty()) return null;
+        if (taskMap.isEmpty()) return (HashMap<String, Task>) output;
         else {
             int id = 0;
             for (String key : taskMap.keySet())
                 output.put(key,taskMap.get(key));
         }
-        return output;
+        return (HashMap<String, Task>) output;
     }
 
     public void deleteTask (String uid) {
         taskMap.remove(uid);
+    }
+
+    public void updateTask (String uid, Task task) {
+        task.setUid(uid);
+        taskMap.put(uid, task);
     }
 
 }

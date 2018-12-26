@@ -5,6 +5,10 @@ import org.alex.repository.TaskRepository;
 
 public class TaskService {
 
-    public TaskRepository taskRepository = new TaskRepository();
+    private final TaskRepository taskRepository = new TaskRepository();
+
+    public TaskRepository getRepo() {
+        return this.taskRepository;
+    }
 
 }

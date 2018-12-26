@@ -14,7 +14,7 @@ public abstract class AbstractCommand {
 
     String command;
 
-    public abstract void execute();
+    public abstract void execute(Bootstrap bootstrap) throws Exception;
 
 
 }

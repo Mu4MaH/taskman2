@@ -17,6 +17,11 @@ Used:
     * Working menu added
     * Command list added
     * add/get task(s) added
+* Version 0.0.3
+    * Worker entity added
+    * Worker repository added
+    * basic logic (CRUD) fo Repositories implemented
+    * varios minor changes and fixes
     
 
 Deploy: java -jar taskman2.jar

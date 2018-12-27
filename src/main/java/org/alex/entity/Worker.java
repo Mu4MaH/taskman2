@@ -4,17 +4,15 @@ import java.util.UUID;
 
 public class Worker {
 
+    private String uid = UUID.randomUUID().toString();
     private String name;
-    private String uid;
 
     public Worker(){
-        this.name = "unnamed worker";
-        this.uid = UUID.randomUUID().toString();
+        this.name = "unnamed_worker";
     }
 
     public Worker(String name){
         this.name = name;
-        this.uid = UUID.randomUUID().toString();
     }
 
     public String getName() {

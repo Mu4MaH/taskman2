@@ -3,6 +3,7 @@ package org.alex.command;
 import org.alex.controller.Bootstrap;
 import org.alex.entity.Task;
 import org.alex.repository.ProjectRepository;
+import org.alex.repository.TaskRepository;
 import org.alex.service.TaskService;
 
 import java.util.HashMap;
@@ -20,9 +21,9 @@ public class TaskGetCommand extends AbstractCommand {
     public void execute(Bootstrap bootstrap) {
         int id = 1;
         System.out.println(description);
-        Map<String,Task> helperMap = bootstrap.taskService.getRepo().getAllTasks();
-        for (String key: helperMap.keySet()) {
-            System.out.println(id++ +". " + helperMap.get(key));
+        final TaskRepository helperRepo = bootstrap.taskService.getRepo();
+        for (String key: helperRepo.getRepo().keySet()) {
+            System.out.println(id++ +". " + helperRepo.getRepo().get(key));
         }
     }
 

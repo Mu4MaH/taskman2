@@ -22,6 +22,9 @@ Used:
     * Worker repository added
     * basic logic (CRUD) fo Repositories implemented
     * varios minor changes and fixes
-    
+* Version 0.0.4
+    * Worker logic added
+    * several fixes
+    * ...    
 
 Deploy: java -jar taskman2.jar

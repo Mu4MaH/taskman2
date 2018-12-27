@@ -19,7 +19,9 @@ public class ProjectCreateCommand extends AbstractCommand {
     @Override
     public void execute(Bootstrap bootstrap) {
         System.out.println(description);
-        bootstrap.projectService.getRepo().addProject(new Project(new Scanner(System.in).nextLine()));
+        final ProjectRepository repoHelper = bootstrap.projectService.getRepo();
+        final String projName = bootstrap.getString();
+        repoHelper.addProject(new Project(projName));
         System.out.println("done..");
     }
 

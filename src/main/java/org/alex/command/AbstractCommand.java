@@ -8,13 +8,11 @@ public abstract class AbstractCommand {
 
     AbstractCommand() { }
 
-    public AbstractCommand(Bootstrap bootstrap){
-        this.bootstrap = bootstrap;
-    }
-
     String command;
 
-    public abstract void execute(Bootstrap bootstrap) throws Exception;
+    public abstract String getCommand();
+
+    public abstract void execute(Bootstrap bootstrap);
 
 
 }

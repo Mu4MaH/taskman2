@@ -6,8 +6,8 @@ import java.util.UUID;
 
 public class Project {
 
-    private String name;
     private String uid = String.valueOf(UUID.randomUUID());
+    private String name;
 
     public Project() {}
 

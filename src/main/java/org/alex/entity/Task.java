@@ -7,8 +7,8 @@ import java.util.UUID;
 
 public class Task {
 
+    private String uid = String.valueOf(UUID.randomUUID());
     private String name;
-    private String uid;
     private int hours; //TODO: время в часах, при выдаче инфы пользователю пересчёт в рабочие дни /8 + остаток в часах
     private String worker; //TODO: связь с ентити Worker через класс-связку Assignee
     private State state;
@@ -16,11 +16,9 @@ public class Task {
 
     public Task(){
         this.name = "default";
-        this.uid = String.valueOf(UUID.randomUUID());
     }
 
     public Task (String name) {
-        this.uid = String.valueOf(UUID.randomUUID());
         this.name = name;
     }
 

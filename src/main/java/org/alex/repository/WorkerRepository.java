@@ -6,12 +6,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WorkerRepository {
+
     private final Map<String, Worker> stuff = new HashMap<>();
 
     public void addWorker(Worker worker){
         stuff.put(worker.getUid(),worker);
     }
 
-    public Worker getWorkerByUid (String uid){ return stuff.get(uid);}
+    public Worker getWorkerByUid (String uid) { return stuff.get(uid);}
+
+    public void deleteWorker (String uid) {
+        stuff.remove(uid);
+    }
+
+    public Map<String, Worker> getRepo() {
+        return this.stuff;
+    }
 
 }

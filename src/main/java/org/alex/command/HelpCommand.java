@@ -8,7 +8,9 @@ public class HelpCommand extends AbstractCommand {
     final public String description = "Help topic";
     final public String command = "help";
 
-    public HelpCommand() {
+    @Override
+    public String getCommand() {
+        return command;
     }
 
     @Override

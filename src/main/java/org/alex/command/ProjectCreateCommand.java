@@ -27,4 +27,9 @@ public class ProjectCreateCommand extends AbstractCommand {
         return this.command;
     }
 
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
 }

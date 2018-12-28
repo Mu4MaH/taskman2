@@ -11,6 +11,11 @@ public class TaskDeleteCommand extends AbstractCommand {
     }
 
     @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
     public void execute(Bootstrap bootstrap) {
         System.out.print("Enter uid of task to delete: ");
         final String strHelper = bootstrap.getString();

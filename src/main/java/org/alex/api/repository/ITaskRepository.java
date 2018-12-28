@@ -2,7 +2,6 @@ package org.alex.api.repository;
 
 import org.alex.entity.Task;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface ITaskRepository {

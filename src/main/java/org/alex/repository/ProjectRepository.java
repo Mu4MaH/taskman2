@@ -24,7 +24,7 @@ public class ProjectRepository implements IProjectRepository {
         projects.put(project.getUid(), project);
     }
 
-    public List<Project> getAllProjects () {
+    public List<Project> getAllProjects() {
         return new ArrayList<>(projects.values());
     }
 

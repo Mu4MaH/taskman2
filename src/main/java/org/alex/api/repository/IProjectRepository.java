@@ -2,10 +2,7 @@ package org.alex.api.repository;
 
 import org.alex.entity.Project;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public interface IProjectRepository {
 
@@ -15,5 +12,5 @@ public interface IProjectRepository {
 
     public void updateProject(Project project);
 
-    public List<Project> getAllProjects ();
+    public List<Project> getAllProjects();
 }

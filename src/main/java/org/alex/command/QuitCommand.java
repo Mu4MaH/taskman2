@@ -4,6 +4,7 @@ import org.alex.controller.Bootstrap;
 
 public class QuitCommand extends AbstractCommand {
     private final String command = "quit";
+    private final String description = "Exit";
 
     @Override
     public void execute(Bootstrap bootstrap) {
@@ -12,6 +13,11 @@ public class QuitCommand extends AbstractCommand {
 
     public String getCommand() {
         return this.command;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
     }
 
 }

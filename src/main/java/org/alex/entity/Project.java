@@ -1,8 +1,9 @@
 package org.alex.entity;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class Project {
+public class Project implements Serializable {
 
     private String uid = String.valueOf(UUID.randomUUID());
     private String name = "default";

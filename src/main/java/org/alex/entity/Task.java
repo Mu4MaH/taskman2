@@ -3,10 +3,10 @@ package org.alex.entity;
 import org.alex.enumerated.Priority;
 import org.alex.enumerated.State;
 
-import java.util.Map;
+import java.io.Serializable;
 import java.util.UUID;
 
-public class Task {
+public class Task implements Serializable {
 
     private String uid = String.valueOf(UUID.randomUUID());
     private String name = "New_task";
@@ -16,7 +16,7 @@ public class Task {
     private Priority priority = Priority.IDLE;
 
     public Task() {
-            }
+    }
 
     public Task(String name) {
         this.name = name;

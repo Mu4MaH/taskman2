@@ -2,7 +2,6 @@ package org.alex.command;
 
 import org.alex.controller.Bootstrap;
 import org.alex.entity.Project;
-import org.alex.repository.ProjectRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +25,11 @@ public final class ProjectGetListCommand extends AbstractCommand {
 
     public String getCommand() {
         return this.command;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
     }
 
 }

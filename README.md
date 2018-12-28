@@ -34,5 +34,9 @@ Used:
     * Delegated all business-logic to service layer
     * Enums fixed
     * Data to service layer as List
-
+* Version 0.0.6
+    * Flush data to disk services added
+    * Assignees flushing data to disk added
+    * Descriptions of commands added
+    
 Deploy: java -jar taskman2.jar

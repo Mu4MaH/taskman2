@@ -7,12 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AssigneeDeleteCommand extends AbstractCommand {
+
     final private String command = "assignee-del";
     final private String description = "Erases assignee everywhere..";
 
     @Override
     public String getCommand() {
         return null;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
     }
 
     @Override

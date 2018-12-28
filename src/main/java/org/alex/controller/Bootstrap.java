@@ -1,9 +1,7 @@
 package org.alex.controller;
 
 import org.alex.command.*;
-import org.alex.service.ProjectService;
-import org.alex.service.TaskService;
-import org.alex.service.AssigneeService;
+import org.alex.service.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,8 +10,12 @@ import java.util.Scanner;
 public class Bootstrap {
 
     public final TaskService taskService = new TaskService();
+    public final TasksFlushDataService tasksFlushDataService = new TasksFlushDataService();
     public final ProjectService projectService = new ProjectService();
+    public final ProjectsFlushDataService projectsFlushDataService = new ProjectsFlushDataService();
     public final AssigneeService assigneeService = new AssigneeService();
+    public final AssigneeFlushDataService assigneeFlushDataService = new AssigneeFlushDataService();
+    public final AssigneeFlushToDiskCommand assigneeFlushToDiskCommand = new AssigneeFlushToDiskCommand();
     private final Scanner scanner = new Scanner(System.in);
     private final Map<String, AbstractCommand> commandMap = new HashMap<>();
     private final HelpCommand helpCommand = new HelpCommand();
@@ -36,9 +38,10 @@ public class Bootstrap {
                 "task-create - create new task.\n " +
                 "task-get - view task by it's name (unready) \n " +
                 "task-del - Remove task from list by id \n " +
-                "worker-create - create worker \n " +
+                "assignee-create - create worker \n " +
                 "worker-del - Erases worker everywhere.. \n " +
                 "worker-list - Get list of workers \n " +
+                "assignee-flush - write assignees to disk \n " +
                 "quit");
         while (true) {
             System.out.print("Enter your command > ");
@@ -67,6 +70,7 @@ public class Bootstrap {
     }
 
     public void register() {
+
         commandMap.put(helpCommand.command, helpCommand);
         commandMap.put(projectCreateCommand.getCommand(), projectCreateCommand);
         commandMap.put(projectGetCommand.getCommand(), projectGetCommand);
@@ -77,6 +81,7 @@ public class Bootstrap {
         commandMap.put(assigneeDeleteCommand.getCommand(), assigneeDeleteCommand);
         commandMap.put(assigneeGetListCommand.getCommand(), assigneeGetListCommand);
         commandMap.put(assigneeCreateCommand.getCommand(), assigneeCreateCommand);
+        commandMap.put(assigneeFlushToDiskCommand.getCommand(), assigneeFlushToDiskCommand);
     }
 
 }

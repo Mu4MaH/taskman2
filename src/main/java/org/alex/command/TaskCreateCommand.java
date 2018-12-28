@@ -38,4 +38,9 @@ public class TaskCreateCommand extends AbstractCommand {
         return command;
     }
 
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
 }

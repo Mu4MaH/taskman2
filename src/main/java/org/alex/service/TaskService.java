@@ -1,13 +1,10 @@
 package org.alex.service;
 
 import org.alex.api.service.ITaskService;
-import org.alex.entity.Project;
 import org.alex.entity.Task;
 import org.alex.repository.TaskRepository;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class TaskService implements ITaskService {
 

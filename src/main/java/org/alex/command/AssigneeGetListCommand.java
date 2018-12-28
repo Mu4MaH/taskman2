@@ -17,6 +17,11 @@ public class AssigneeGetListCommand extends AbstractCommand {
     }
 
     @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
     public void execute(Bootstrap bootstrap) {
         int id = 1;
         final List<Assignee> helperList = new ArrayList<>(bootstrap.assigneeService.getAllAssignee());

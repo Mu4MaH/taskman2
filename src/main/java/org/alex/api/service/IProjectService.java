@@ -8,6 +8,7 @@ import java.util.List;
 public interface IProjectService {
 
     public ProjectRepository getRepo();
+
     public void addProject(Project project);
 
     public Project getProject(String uid);

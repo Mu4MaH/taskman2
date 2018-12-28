@@ -1,8 +1,9 @@
 package org.alex.entity;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class Assignee {
+public class Assignee implements Serializable {
 
     private String uid = UUID.randomUUID().toString();
     private String name = "Unnamed_assignee";

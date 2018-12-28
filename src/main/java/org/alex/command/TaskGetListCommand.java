@@ -23,6 +23,11 @@ public class TaskGetListCommand extends AbstractCommand {
         }
     }
 
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
     public String getCommand() {
         return command;
     }

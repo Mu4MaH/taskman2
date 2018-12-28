@@ -1,13 +1,10 @@
 package org.alex.service;
 
-import org.alex.api.repository.IProjectRepository;
 import org.alex.api.service.IProjectService;
 import org.alex.entity.Project;
 import org.alex.repository.ProjectRepository;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ProjectService implements IProjectService {
 

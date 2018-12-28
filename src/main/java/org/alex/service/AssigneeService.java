@@ -22,7 +22,7 @@ public class AssigneeService implements IWorkerService {
     }
 
     public List<Assignee> getAllAssignee() {
-       return stuff.getAllAssignees();
+        return stuff.getAllAssignees();
     }
 
 }

@@ -17,6 +17,7 @@ public enum State {
         for (State s : State.values()) {
             if (s.index == index)
                 return s;
-        } return State.OPEN;
+        }
+        return State.OPEN;
     }
 }

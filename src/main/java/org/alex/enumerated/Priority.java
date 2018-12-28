@@ -13,7 +13,7 @@ public enum Priority {
     }
 
     public Priority setById(int index) {
-        for (Priority p : Priority.values()){
+        for (Priority p : Priority.values()) {
             if (p.index == index)
                 return p;
         }

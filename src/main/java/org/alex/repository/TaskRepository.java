@@ -29,7 +29,7 @@ public class TaskRepository implements ITaskRepository {
         tasks.remove(uid);
     }
 
-    public List<Task> getAllTasks(){
+    public List<Task> getAllTasks() {
         return new ArrayList(tasks.values());
     }
 

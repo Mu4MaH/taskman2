@@ -3,22 +3,22 @@ package org.alex.entity;
 import org.alex.enumerated.Priority;
 import org.alex.enumerated.State;
 
+import java.util.Map;
 import java.util.UUID;
 
 public class Task {
 
     private String uid = String.valueOf(UUID.randomUUID());
-    private String name;
-    private int hours; //TODO: время в часах, при выдаче инфы пользователю пересчёт в рабочие дни /8 + остаток в часах
-    private String worker; //TODO: связь с ентити Worker через класс-связку Assignee
-    private State state;
-    private Priority priority;
+    private String name = "New_task";
+    private int hours = 0; //TODO: время в часах, при выдаче инфы пользователю пересчёт в рабочие дни /8 + остаток в часах
+    private String worker; //TODO: связь с ентити Assignee через класс-связку Assignee
+    private State state = State.OPEN;
+    private Priority priority = Priority.IDLE;
 
-    public Task(){
-        this.name = "default";
-    }
+    public Task() {
+            }
 
-    public Task (String name) {
+    public Task(String name) {
         this.name = name;
     }
 
@@ -26,12 +26,12 @@ public class Task {
         return name;
     }
 
-    public String getUid() {
-        return uid;
-    }
-
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUid() {
+        return uid;
     }
 
     public void setUid(String uid) {
@@ -70,4 +70,13 @@ public class Task {
         this.priority = Priority.valueOf(priority.toUpperCase());
     }
 
+    @Override
+    public String toString() {
+        return "Task{" +
+                "uid='" + uid + '\'' +
+                ", name='" + name + '\'' +
+                ", state=" + state +
+                ", priority=" + priority +
+                '}';
+    }
 }

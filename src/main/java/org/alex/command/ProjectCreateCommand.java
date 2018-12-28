@@ -5,8 +5,6 @@ import org.alex.entity.Project;
 import org.alex.repository.ProjectRepository;
 import org.alex.service.ProjectService;
 
-import java.util.Scanner;
-
 public class ProjectCreateCommand extends AbstractCommand {
 
     public final String description = "Create new project";

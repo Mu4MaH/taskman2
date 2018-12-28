@@ -2,16 +2,15 @@ package org.alex.entity;
 
 import java.util.UUID;
 
-public class Worker {
+public class Assignee {
 
     private String uid = UUID.randomUUID().toString();
-    private String name;
+    private String name = "Unnamed_assignee";
 
-    public Worker(){
-        this.name = "unnamed_worker";
+    public Assignee() {
     }
 
-    public Worker(String name){
+    public Assignee(String name) {
         this.name = name;
     }
 
@@ -31,4 +30,8 @@ public class Worker {
         this.uid = uid;
     }
 
+    @Override
+    public String toString() {
+        return this.uid + " : " + this.name;
+    }
 }

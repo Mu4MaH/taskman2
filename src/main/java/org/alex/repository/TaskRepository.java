@@ -1,20 +1,20 @@
 package org.alex.repository;
 
+import org.alex.api.repository.ITaskRepository;
 import org.alex.entity.Task;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class TaskRepository {
+public class TaskRepository implements ITaskRepository {
 
     private final Map<String, Task> tasks = new HashMap<>();
 
-    public Map<String, Task> getRepo() {
-        return this.tasks;
-    }
 
     public void addTask(Task task) {
-        tasks.put(task.getUid(),task);
+        tasks.put(task.getUid(), task);
     }
 
     public Task getTask(String uid) {
@@ -25,8 +25,12 @@ public class TaskRepository {
         tasks.put(uid, task);
     }
 
-    public void deleteTask (String uid) {
+    public void deleteTask(String uid) {
         tasks.remove(uid);
+    }
+
+    public List<Task> getAllTasks(){
+        return new ArrayList(tasks.values());
     }
 
 }

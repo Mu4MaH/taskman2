@@ -6,6 +6,17 @@ public enum Priority {
     URGENT(3),
     FATAL(4);
 
-    Priority(int i) {
+    final int index;
+
+    Priority(int index) {
+        this.index = index;
+    }
+
+    public Priority setById(int index) {
+        for (Priority p : Priority.values()){
+            if (p.index == index)
+                return p;
+        }
+        return Priority.IDLE; // if index is invalid
     }
 }

@@ -1,17 +1,16 @@
 package org.alex.entity;
 
-import org.alex.repository.ProjectRepository;
-
 import java.util.UUID;
 
 public class Project {
 
     private String uid = String.valueOf(UUID.randomUUID());
-    private String name;
+    private String name = "default";
 
-    public Project() {}
+    public Project() {
+    }
 
-    public Project (String name) {
+    public Project(String name) {
         this.name = name;
     }
 
@@ -31,4 +30,8 @@ public class Project {
         this.uid = uid;
     }
 
+    @Override
+    public String toString() {
+        return this.uid + " : " + this.name;
+    }
 }

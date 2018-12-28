@@ -23,5 +23,11 @@
         </plugins>
     </build>
 
-
+<developers>
+    <developer>
+        <name>Alexey Lushchikhin</name>
+        <email>a.lushchikhin@gmail.com</email>
+        <timezone>+3 GMT</timezone>
+    </developer>
+</developers>
 </project>

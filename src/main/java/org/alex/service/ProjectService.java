@@ -1,16 +1,36 @@
 package org.alex.service;
 
+import org.alex.api.repository.IProjectRepository;
+import org.alex.api.service.IProjectService;
+import org.alex.entity.Project;
 import org.alex.repository.ProjectRepository;
 
-public class ProjectService {
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-     ProjectRepository projectRepository = new ProjectRepository();
+public class ProjectService implements IProjectService {
 
-     public ProjectRepository getRepo(){
-          return this.projectRepository;
-     }
+    ProjectRepository projectRepository = new ProjectRepository();
 
+    public ProjectRepository getRepo() {
+        return this.projectRepository;
+    }
 
-     /*делегирование го!*/
+    public void addProject(Project project) {
+        projectRepository.addProject(project);
+    }
+
+    public Project getProject(String uid) {
+        return projectRepository.getProject(uid);
+    }
+
+    public void updateProject(Project project) {
+        projectRepository.updateProject(project);
+    }
+
+    public List<Project> getAllProjects() {
+        return projectRepository.getAllProjects();
+    }
 
 }

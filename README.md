@@ -26,5 +26,13 @@ Used:
     * Worker logic added
     * several fixes
     * ...    
+* Version 0.0.4.1
+    * Delegating business-logic to service
+* Version 0.0.5
+    * Exceptions added
+    * Services and repositories interfaces added
+    * Delegated all business-logic to service layer
+    * Enums fixed
+    * Data to service layer as List
 
 Deploy: java -jar taskman2.jar

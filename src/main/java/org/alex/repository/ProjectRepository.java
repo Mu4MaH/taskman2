@@ -28,6 +28,13 @@ public class ProjectRepository implements IProjectRepository {
         return new ArrayList<>(projects.values());
     }
 
+    public void mergeProjects(List<Project> list) {
+
+        for (Project project: list)
+        {projects.put(project.getUid(),project);
+        }
+    }
+
 }
 
 

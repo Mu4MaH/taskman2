@@ -38,5 +38,8 @@ Used:
     * Flush data to disk services added
     * Assignees flushing data to disk added
     * Descriptions of commands added
+* Version 0.0.6.1
+    * Read/Write commands added
+    * ...
     
 Deploy: java -jar taskman2.jar

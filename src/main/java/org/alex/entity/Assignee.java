@@ -1,12 +1,15 @@
 package org.alex.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class Assignee implements Serializable {
 
     private String uid = UUID.randomUUID().toString();
     private String name = "Unnamed_assignee";
+    private final List<String> taskList = new ArrayList();
 
     public Assignee() {
     }

@@ -10,12 +10,8 @@ import java.util.Scanner;
 public class Bootstrap {
 
     public final TaskService taskService = new TaskService();
-    public final TasksFlushDataService tasksFlushDataService = new TasksFlushDataService();
     public final ProjectService projectService = new ProjectService();
-    public final ProjectsFlushDataService projectsFlushDataService = new ProjectsFlushDataService();
     public final AssigneeService assigneeService = new AssigneeService();
-    public final AssigneeFlushDataService assigneeFlushDataService = new AssigneeFlushDataService();
-    public final AssigneeFlushToDiskCommand assigneeFlushToDiskCommand = new AssigneeFlushToDiskCommand();
     private final Scanner scanner = new Scanner(System.in);
     private final Map<String, AbstractCommand> commandMap = new HashMap<>();
     private final HelpCommand helpCommand = new HelpCommand();
@@ -28,8 +24,17 @@ public class Bootstrap {
     private final AssigneeDeleteCommand assigneeDeleteCommand = new AssigneeDeleteCommand();
     private final AssigneeGetListCommand assigneeGetListCommand = new AssigneeGetListCommand();
     private final QuitCommand quitCommand = new QuitCommand();
+    private final DataFlushToDiskCommand dataFlushToDiskCommand = new DataFlushToDiskCommand();
+    private final DataLoadFromDiskCommand dataLoadFromDiskCommand = new DataLoadFromDiskCommand();
 
-    public void execute() {
+
+    /*** -= Test data Block =- ***/
+    //TODO: create test data to be loaded at the start
+
+    /***/
+
+
+    public void execute() throws Exception {
         this.register();
         System.out.println("-= Task manager v.2.0.0 greets you =-");
         System.out.println("List of commands: \n help - show this list.\n " +
@@ -41,7 +46,9 @@ public class Bootstrap {
                 "assignee-create - create worker \n " +
                 "worker-del - Erases worker everywhere.. \n " +
                 "worker-list - Get list of workers \n " +
-                "assignee-flush - write assignees to disk \n " +
+                "assignee-dump - write assignees to disk \n " +
+                "save - Save data to disk \n " +
+                "load - Load data from disk \n " +
                 "quit");
         while (true) {
             System.out.print("Enter your command > ");
@@ -70,7 +77,6 @@ public class Bootstrap {
     }
 
     public void register() {
-
         commandMap.put(helpCommand.command, helpCommand);
         commandMap.put(projectCreateCommand.getCommand(), projectCreateCommand);
         commandMap.put(projectGetCommand.getCommand(), projectGetCommand);
@@ -81,7 +87,8 @@ public class Bootstrap {
         commandMap.put(assigneeDeleteCommand.getCommand(), assigneeDeleteCommand);
         commandMap.put(assigneeGetListCommand.getCommand(), assigneeGetListCommand);
         commandMap.put(assigneeCreateCommand.getCommand(), assigneeCreateCommand);
-        commandMap.put(assigneeFlushToDiskCommand.getCommand(), assigneeFlushToDiskCommand);
+        commandMap.put(dataFlushToDiskCommand.getCommand(), dataFlushToDiskCommand);
+        commandMap.put(dataLoadFromDiskCommand.getCommand(),dataLoadFromDiskCommand);
     }
 
 }

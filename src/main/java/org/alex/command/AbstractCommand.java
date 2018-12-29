@@ -14,7 +14,7 @@ public abstract class AbstractCommand {
 
     public abstract String getDescription();
 
-    public abstract void execute(Bootstrap bootstrap);
+    public abstract void execute(Bootstrap bootstrap) throws Exception;
 
 }
 

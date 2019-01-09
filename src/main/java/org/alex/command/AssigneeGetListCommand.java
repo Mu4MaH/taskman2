@@ -8,7 +8,7 @@ import java.util.List;
 
 public class AssigneeGetListCommand extends AbstractCommand {
 
-    private final String command = "assignee-list";
+    private final String command = "al";
     private final String description = "Command to get list of assignees";
 
     @Override
@@ -24,7 +24,7 @@ public class AssigneeGetListCommand extends AbstractCommand {
     @Override
     public void execute(Bootstrap bootstrap) {
         int id = 1;
-        final List<Assignee> helperList = new ArrayList<>(bootstrap.assigneeService.getAllAssignee());
+        final List<Assignee> helperList = new ArrayList<>(bootstrap.getAssigneeService().getAllAssignee());
         for (Assignee assignee : helperList) {
             System.out.println(assignee.toString());
         }

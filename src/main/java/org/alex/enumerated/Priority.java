@@ -6,10 +6,14 @@ public enum Priority {
     URGENT(3),
     FATAL(4);
 
-    final int index;
+    public final int index;
 
     Priority(int index) {
         this.index = index;
+    }
+
+    public int getIndex() {
+        return this.index;
     }
 
     public Priority setById(int index) {

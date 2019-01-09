@@ -7,14 +7,12 @@ import java.util.List;
 
 public interface IProjectService {
 
-    public ProjectRepository getRepo();
+    void addProject(Project project);
 
-    public void addProject(Project project);
+    Project getProject(String uid);
 
-    public Project getProject(String uid);
+    List<Project> getAllProjects();
 
-    public void updateProject(Project project);
-
-    public List<Project> getAllProjects();
+    void mergeProjects(List<Project> projects);
 
 }

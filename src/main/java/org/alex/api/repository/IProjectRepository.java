@@ -10,7 +10,5 @@ public interface IProjectRepository {
 
     public Project getProject(String uid);
 
-    public void updateProject(Project project);
-
     public List<Project> getAllProjects();
 }

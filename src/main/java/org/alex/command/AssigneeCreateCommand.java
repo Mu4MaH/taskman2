@@ -5,7 +5,7 @@ import org.alex.entity.Assignee;
 
 public class AssigneeCreateCommand extends AbstractCommand {
 
-    final private String command = "assignee-create";
+    final private String command = "ac";
     final private String description = "Creates new assignee";
 
     @Override
@@ -20,9 +20,14 @@ public class AssigneeCreateCommand extends AbstractCommand {
 
     @Override
     public void execute(Bootstrap bootstrap) {
+        final Assignee helperAss = new Assignee();
         System.out.print("Введите имя работника: ");
-        final String strHelper = bootstrap.getString();
-        bootstrap.assigneeService.addAssignee(new Assignee(strHelper));
+        helperAss.setName(bootstrap.getString());
+        System.out.println("Введите логин пользователя");
+        helperAss.setLogin(bootstrap.getString());
+        System.out.println("Введите пароль пользователя");
+        helperAss.setPassword(bootstrap.getString());
+        bootstrap.getAssigneeService().addAssignee(helperAss);
     }
 
 }

@@ -9,7 +9,7 @@ import java.util.List;
 public class TaskGetListCommand extends AbstractCommand {
 
     final public String description = "List of tasks";
-    final private String command = "task-get";
+    final private String command = "tl";
 
     public TaskGetListCommand() {
     }
@@ -17,7 +17,7 @@ public class TaskGetListCommand extends AbstractCommand {
     @Override
     public void execute(Bootstrap bootstrap) {
         int id = 1;
-        final List<Task> helperList = new ArrayList<>(bootstrap.taskService.getAllTasks());
+        final List<Task> helperList = new ArrayList<>(bootstrap.getTaskService().getAllTasks());
         for (Task task : helperList) {
             System.out.println(task.toString());
         }

@@ -12,26 +12,21 @@ public class ProjectRepository implements IProjectRepository {
 
     private final Map<String, Project> projects = new HashMap<>();
 
-    public void addProject(Project project) {
-        projects.put(project.getUid(), project);
+    public void addProject(final Project project) {
+        this.projects.put(project.getUid(), project);
     }
 
-    public Project getProject(String uid) {
-        return projects.get(uid);
-    }
-
-    public void updateProject(Project project) {
-        projects.put(project.getUid(), project);
+    public Project getProject(final String uid) {
+        return this.projects.get(uid);
     }
 
     public List<Project> getAllProjects() {
-        return new ArrayList<>(projects.values());
+        return new ArrayList<>(this.projects.values());
     }
 
     public void mergeProjects(List<Project> list) {
-
-        for (Project project: list)
-        {projects.put(project.getUid(),project);
+        for (Project project : list) {
+            this.projects.put(project.getUid(), project);
         }
     }
 

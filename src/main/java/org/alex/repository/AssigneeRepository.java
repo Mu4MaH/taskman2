@@ -24,7 +24,7 @@ public class AssigneeRepository {
     }
 
     public List<Assignee> getAllAssignees() {
-        return new ArrayList(stuff.values());
+        return new ArrayList<Assignee>(stuff.values());
     }
 
 }

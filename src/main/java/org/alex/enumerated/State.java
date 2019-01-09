@@ -7,7 +7,7 @@ public enum State {
     FINISHED(4),
     CLOSED(5);
 
-    final int index;
+    private final int index;
 
     State(int index) {
         this.index = index;
@@ -19,5 +19,9 @@ public enum State {
                 return s;
         }
         return State.OPEN;
+    }
+
+    public int getIndex() {
+        return index;
     }
 }

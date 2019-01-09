@@ -28,9 +28,9 @@ public class DataFlushToDiskCommand extends AbstractCommand {
 
         final File file;
         file = new File("./data.tm");
-        final Assignee[] assignees = bootstrap.assigneeService.getAllAssignee().toArray(new Assignee[0]);
-        final Task[] tasks = bootstrap.taskService.getAllTasks().toArray(new Task[0]);
-        final Project[] projects = bootstrap.projectService.getAllProjects().toArray(new Project[0]);
+        final Assignee[] assignees = bootstrap.getAssigneeService().getAllAssignee().toArray(new Assignee[0]);
+        final Task[] tasks = bootstrap.getTaskService().getAllTasks().toArray(new Task[0]);
+        final Project[] projects = bootstrap.getProjectService().getAllProjects().toArray(new Project[0]);
         try {
             FileOutputStream fos = new FileOutputStream(file);
             ObjectOutputStream oos = new ObjectOutputStream(fos);

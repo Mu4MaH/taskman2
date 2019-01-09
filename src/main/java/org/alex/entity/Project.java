@@ -1,15 +1,24 @@
 package org.alex.entity;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.UUID;
 
 public class Project implements Serializable {
 
     private String uid = String.valueOf(UUID.randomUUID());
-    private String name = "default";
+    private String name;
+    private String author;
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
     public Project() {
+        this.name = "default";
     }
 
     public Project(String name) {
@@ -36,4 +45,5 @@ public class Project implements Serializable {
     public String toString() {
         return this.uid + " : " + this.name;
     }
+
 }

@@ -12,34 +12,59 @@ Used:
     * Initial version. Entities and repositories created
     * Some program logic created
     * Command pattern usage try
+
 * Version 0.0.2
     * Basic commands added
     * Working menu added
     * Command list added
     * add/get task(s) added
+
 * Version 0.0.3
     * Worker entity added
     * Worker repository added
     * basic logic (CRUD) fo Repositories implemented
     * varios minor changes and fixes
+
 * Version 0.0.4
     * Worker logic added
     * several fixes
     * ...    
+
 * Version 0.0.4.1
     * Delegating business-logic to service
+
 * Version 0.0.5
     * Exceptions added
     * Services and repositories interfaces added
     * Delegated all business-logic to service layer
     * Enums fixed
     * Data to service layer as List
+
 * Version 0.0.6
     * Flush data to disk services added
     * Assignees flushing data to disk added
     * Descriptions of commands added
+
 * Version 0.0.6.1
     * Read/Write commands added
     * ...
+
+* Version 0.0.7
+    * Built-in admin account added
+    * Assignment entity added
+    * Assignment service added
+    * Authorization controller added
+    * Authorization data login/password to assignee entity added
+    * Login/logout ability using existing assignees from assignee repository added
+    * Session entity added
+    * Exceptions added
+    * Authentication two-sided service added
+    * Access Control List repository added
+    * Various minor fixes and changes
     
-Deploy: java -jar taskman2.jar
+```
+Build: mvn clean install 
+```
+```
+Deploy: java -jar ./taskman2.jar
+```

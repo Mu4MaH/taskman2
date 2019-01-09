@@ -1,6 +1,11 @@
 package org.alex.controller;
 
+import org.alex.api.service.*;
 import org.alex.command.*;
+import org.alex.entity.Assignee;
+import org.alex.entity.Project;
+import org.alex.entity.Session;
+import org.alex.entity.Task;
 import org.alex.service.*;
 
 import java.util.HashMap;
@@ -9,10 +14,15 @@ import java.util.Scanner;
 
 public class Bootstrap {
 
-    public final TaskService taskService = new TaskService();
-    public final ProjectService projectService = new ProjectService();
-    public final AssigneeService assigneeService = new AssigneeService();
+    private final ITaskService taskService = new TaskService();
+    private final IProjectService projectService = new ProjectService();
+    private final IAssigneeService assigneeService = new AssigneeService();
+    private final IAssignmentService assignmentService = new AssignmentService();
+    private final IAccessControlService accessControlService = new AccessControlService();
+    private Session session;
     private final Scanner scanner = new Scanner(System.in);
+
+    /*Commands block*/
     private final Map<String, AbstractCommand> commandMap = new HashMap<>();
     private final HelpCommand helpCommand = new HelpCommand();
     private final ProjectCreateCommand projectCreateCommand = new ProjectCreateCommand();
@@ -26,32 +36,31 @@ public class Bootstrap {
     private final QuitCommand quitCommand = new QuitCommand();
     private final DataFlushToDiskCommand dataFlushToDiskCommand = new DataFlushToDiskCommand();
     private final DataLoadFromDiskCommand dataLoadFromDiskCommand = new DataLoadFromDiskCommand();
-
+    private final LogoutCommand logoutCommand = new LogoutCommand();
+    /*End of commands block*/
 
     /*** -= Test data Block =- ***/
-    //TODO: create test data to be loaded at the start
+    public void testFill() {
+        assigneeService.addAssignee(new Assignee());
+        projectService.addProject(new Project("Project1"));
+        projectService.addProject(new Project("Project2"));
+        projectService.addProject(new Project("Project3"));
+        taskService.addTask(new Task());
+    }
 
     /***/
 
-
-    public void execute() throws Exception {
+    public void execute(Session session) throws Exception {
+        this.session = session;
         this.register();
-        System.out.println("-= Task manager v.2.0.0 greets you =-");
-        System.out.println("List of commands: \n help - show this list.\n " +
-                "project-create - create new project. \n " +
-                "project-list - view all projects. \n " +
-                "task-create - create new task.\n " +
-                "task-get - view task by it's name (unready) \n " +
-                "task-del - Remove task from list by id \n " +
-                "assignee-create - create worker \n " +
-                "worker-del - Erases worker everywhere.. \n " +
-                "worker-list - Get list of workers \n " +
-                "assignee-dump - write assignees to disk \n " +
-                "save - Save data to disk \n " +
-                "load - Load data from disk \n " +
-                "quit");
+        System.out.println(" -= Добро пожаловать в консоль управления задачами =-\n");
+        System.out.println("Список команд:");
+        for (String key : commandMap.keySet()
+        ) {
+            System.out.println(key + " - " + commandMap.get(key).getDescription());
+        }
         while (true) {
-            System.out.print("Enter your command > ");
+            System.out.print("Введите команду> ");
             final String cmd = scanner.nextLine();
             if (!commandMap.containsKey(cmd)) ;
             else {
@@ -59,6 +68,8 @@ public class Bootstrap {
             }
         }
     }
+
+    /* -= Safe scanners =- */
 
     public String getString() {
         return scanner.nextLine();
@@ -76,6 +87,40 @@ public class Bootstrap {
         return output;
     }
 
+    /***************/
+
+    public void clearSession() {
+        this.session = null;
+    }
+
+    public void getHelp() {
+        System.out.println("Список команд:");
+        for (String key : commandMap.keySet()
+        ) {
+            System.out.println(key + " - " + commandMap.get(key).getDescription());
+        }
+    }
+
+    public Session getSession() {
+        return session;
+    }
+
+    public ITaskService getTaskService() {
+        return this.taskService;
+    }
+
+    public IProjectService getProjectService() {
+        return this.projectService;
+    }
+
+    public IAssigneeService getAssigneeService() {
+        return this.assigneeService;
+    }
+
+    public IAssignmentService getAssignmentService() {
+        return this.assignmentService;
+    }
+
     public void register() {
         commandMap.put(helpCommand.command, helpCommand);
         commandMap.put(projectCreateCommand.getCommand(), projectCreateCommand);
@@ -88,7 +133,8 @@ public class Bootstrap {
         commandMap.put(assigneeGetListCommand.getCommand(), assigneeGetListCommand);
         commandMap.put(assigneeCreateCommand.getCommand(), assigneeCreateCommand);
         commandMap.put(dataFlushToDiskCommand.getCommand(), dataFlushToDiskCommand);
-        commandMap.put(dataLoadFromDiskCommand.getCommand(),dataLoadFromDiskCommand);
+        commandMap.put(dataLoadFromDiskCommand.getCommand(), dataLoadFromDiskCommand);
+        commandMap.put(logoutCommand.getCommand(), logoutCommand);
     }
 
 }

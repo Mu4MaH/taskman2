@@ -12,25 +12,24 @@ public class TaskRepository implements ITaskRepository {
 
     private final Map<String, Task> tasks = new HashMap<>();
 
-
     public void addTask(Task task) {
-        tasks.put(task.getUid(), task);
+        this.tasks.put(task.getUid(), task);
     }
 
     public Task getTask(String uid) {
-        return tasks.get(uid);
+        return this.tasks.get(uid);
     }
 
     public void updateTask(String uid, Task task) {
-        tasks.put(uid, task);
+        this.tasks.put(uid, task);
     }
 
     public void deleteTask(String uid) {
-        tasks.remove(uid);
+        this.tasks.remove(uid);
     }
 
     public List<Task> getAllTasks() {
-        return new ArrayList(tasks.values());
+        return new ArrayList(this.tasks.values());
     }
 
 }

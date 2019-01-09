@@ -9,7 +9,7 @@ import java.util.List;
 public final class ProjectGetListCommand extends AbstractCommand {
 
     final public String description = "Get Project List";
-    final private String command = "project-list";
+    final private String command = "pl";
 
     public ProjectGetListCommand() {
     }
@@ -17,7 +17,7 @@ public final class ProjectGetListCommand extends AbstractCommand {
     @Override
     public void execute(Bootstrap bootstrap) {
         int id = 1;
-        final List<Project> helperList = new ArrayList<>(bootstrap.projectService.getAllProjects());
+        final List<Project> helperList = new ArrayList<>(bootstrap.getProjectService().getAllProjects());
         for (Project project : helperList) {
             System.out.println(project.toString());
         }

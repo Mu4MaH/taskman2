@@ -28,6 +28,6 @@ public class TaskService implements ITaskService {
 
     public void updateTask(String uid, Task task) {
         taskRepository.updateTask(uid, task);
-
     }
+
 }

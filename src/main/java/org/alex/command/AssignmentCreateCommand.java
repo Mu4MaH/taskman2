@@ -50,4 +50,5 @@ public class AssignmentCreateCommand extends AbstractCommand {
         choice = bootstrap.getInt();
         //bootstrap.getAssignmentService().create(new Assignment(helperList.get(i-1), idAssigner));
     }
+
 }

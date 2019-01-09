@@ -2,6 +2,7 @@ package org.alex.service;
 
 import org.alex.api.service.IAssigneeService;
 import org.alex.entity.Assignee;
+import org.alex.exception.IllegalStringException;
 import org.alex.repository.AssigneeRepository;
 
 import java.util.List;
@@ -20,16 +21,28 @@ public class AssigneeService implements IAssigneeService {
         stuff.addAssignee(admin);
     }
 
-    public Assignee getAssigneeByUid(String uid) {
-        return this.stuff.getAssigneeByUid(uid);
+    public Assignee getAssigneeByUid(String uid) throws IllegalStringException {
+        if (uid != "" && uid != null) {
+            return this.stuff.getAssigneeByUid(uid);
+        } else {
+            throw new IllegalStringException();
+        }
     }
 
-    public void deleteAssignee(String uid) {
-        this.stuff.deleteAssignee(uid);
+    public void deleteAssignee(String uid) throws IllegalStringException {
+        if (uid != "" && uid != null) {
+            this.stuff.deleteAssignee(uid);
+        } else {
+            throw new IllegalStringException();
+        }
     }
 
     public void addAssignee(Assignee assignee) {
-        this.stuff.addAssignee(assignee);
+        if (assignee == null) {
+            throw new NullPointerException();
+        } else {
+            this.stuff.addAssignee(assignee);
+        }
     }
 
     public List<Assignee> getAllAssignee() {

@@ -61,6 +61,9 @@ Used:
     * Authentication two-sided service added
     * Access Control List repository added
     * Various minor fixes and changes
+
+* Version 0.0.7.1
+    * Valid data check to service layer added
     
 ```
 Build: mvn clean install 

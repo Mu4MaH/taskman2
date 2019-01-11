@@ -22,29 +22,31 @@ public class AssignmentService implements IAssignmentService {
 
     @Override
     public void delete(String fromId, String toId) throws IllegalStringException {
-        if (fromId != null && toId != null) {
+        if (fromId.equals(null) || toId.equals(null)) {
             assignmentRepository.delete(fromId, toId);
         } else {
-            throw new IllegalStringException();
+            return;
         }
     }
 
     @Override
     public List<Assignment> getAllById(String fromId) {
-        if (fromId == null || fromId == "") {
-            throw new NullPointerException();
+        if (fromId.equals(null) || fromId.isEmpty()) {
+            return null;
         } else {
             return assignmentRepository.getAllById(fromId);
         }
     }
 
     @Override
-    public void merge(List<Assignment> assignments) {
-        if (assignments == null) {
-            throw new NullPointerException();
-        } else {
-            assignmentRepository.merge(assignments);
+    public void mergeAssignments(List<Assignment> assignments) {
+        if (assignments == null) return;
+        assignmentRepository.merge(assignments);
         }
+
+    @Override
+    public List<Assignment> getAllAssignments() {
+        return assignmentRepository.getAllAssignments();
     }
 
     @Override

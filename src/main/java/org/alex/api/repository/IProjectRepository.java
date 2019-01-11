@@ -6,9 +6,12 @@ import java.util.List;
 
 public interface IProjectRepository {
 
-    public void addProject(Project project);
+    void addProject(Project project);
 
-    public Project getProject(String uid);
+    Project getProject(String uid);
 
-    public List<Project> getAllProjects();
+    List<Project> getAllProjects();
+
+    void mergeProjects(List<Project> list);
+
 }

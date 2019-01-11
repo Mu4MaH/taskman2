@@ -13,8 +13,17 @@ public class Task implements Serializable {
     private int hours = 0; //TODO: время в часах, при выдаче инфы пользователю пересчёт в рабочие дни /8 + остаток в часах
     private State state = State.OPEN;
     private Priority priority = Priority.IDLE;
+    private String ownerId;
 
     public Task() {
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 
     public Task(String name) {

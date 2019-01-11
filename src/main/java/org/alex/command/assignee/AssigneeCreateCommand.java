@@ -1,5 +1,6 @@
-package org.alex.command;
+package org.alex.command.assignee;
 
+import org.alex.command.AbstractCommand;
 import org.alex.controller.Bootstrap;
 import org.alex.entity.Assignee;
 
@@ -22,11 +23,12 @@ public class AssigneeCreateCommand extends AbstractCommand {
     public void execute(Bootstrap bootstrap) {
         final Assignee helperAss = new Assignee();
         System.out.print("Введите имя работника: ");
-        helperAss.setName(bootstrap.getString());
+        helperAss.setName(bootstrap.getNextLine());
         System.out.println("Введите логин пользователя");
-        helperAss.setLogin(bootstrap.getString());
+        helperAss.setLogin(bootstrap.getNextLine());
         System.out.println("Введите пароль пользователя");
-        helperAss.setPassword(bootstrap.getString());
+        helperAss.setPassword(bootstrap.getNextLine());
+        helperAss.setGroup("'users");
         bootstrap.getAssigneeService().addAssignee(helperAss);
     }
 

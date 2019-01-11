@@ -7,14 +7,14 @@ public class Project implements Serializable {
 
     private String uid = String.valueOf(UUID.randomUUID());
     private String name;
-    private String author;
+    private String ownerId;
 
-    public String getAuthor() {
-        return author;
+    public String getOwnerId() {
+        return ownerId;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 
     public Project() {

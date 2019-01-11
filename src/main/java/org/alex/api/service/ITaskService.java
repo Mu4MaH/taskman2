@@ -1,21 +1,22 @@
 package org.alex.api.service;
 
 import org.alex.entity.Task;
-import org.alex.exception.IllegalCallParameterException;
+import org.alex.exception.IllegalArgumentException;
 import org.alex.exception.IllegalStringException;
 
 import java.util.List;
 
 public interface ITaskService {
 
-    public void deleteTask(String uid) throws IllegalStringException;
+    void deleteTask(String uid) throws IllegalArgumentException;
 
-    public void addTask(Task task);
+    void addTask(Task task);
 
-    public List<Task> getAllTasks();
+    List<Task> getAllTasks();
 
-    public Task getTask(String uid) throws IllegalStringException;
+    Task getTask(String uid) throws IllegalArgumentException;
 
-    public void updateTask(String uid, Task task) throws IllegalCallParameterException;
+    void updateTask(String uid, Task task) throws IllegalArgumentException;
 
+    void mergeTasks(List<Task> tasks);
 }

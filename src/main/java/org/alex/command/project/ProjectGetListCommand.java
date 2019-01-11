@@ -1,5 +1,6 @@
-package org.alex.command;
+package org.alex.command.project;
 
+import org.alex.command.AbstractCommand;
 import org.alex.controller.Bootstrap;
 import org.alex.entity.Project;
 
@@ -18,9 +19,13 @@ public final class ProjectGetListCommand extends AbstractCommand {
     public void execute(Bootstrap bootstrap) {
         int id = 1;
         final List<Project> helperList = new ArrayList<>(bootstrap.getProjectService().getAllProjects());
+        final String adminGroup = bootstrap.getAssigneeService().getAdminGroup();
+        final String loggedUserId = bootstrap.getSession().getUserId();
         for (Project project : helperList) {
-            System.out.println(project.toString());
+            if (loggedUserId.equals(project.getOwnerId()) || adminGroup.contains(loggedUserId))
+             System.out.println(id++ + ". " + project.toString());
         }
+
     }
 
     public String getCommand() {

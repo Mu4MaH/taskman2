@@ -65,6 +65,15 @@ Used:
 * Version 0.0.7.1
     * Valid data check to service layer added
     
+* Version 0.0.8
+    * Data check in service layers fixes
+    * Access control for tasks/projects added
+    * Forbidden project|task delete for everyone except Administrators group
+    * Access Control for Administrators group fixes
+    * Domain entity with I/O methods added
+    * Save to Json format added
+    * Varios minor fixes and refactoring
+    
 ```
 Build: mvn clean install 
 ```

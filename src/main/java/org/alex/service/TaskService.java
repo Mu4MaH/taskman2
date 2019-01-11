@@ -2,7 +2,7 @@ package org.alex.service;
 
 import org.alex.api.service.ITaskService;
 import org.alex.entity.Task;
-import org.alex.exception.IllegalCallParameterException;
+import org.alex.exception.IllegalArgumentException;
 import org.alex.exception.IllegalStringException;
 import org.alex.repository.TaskRepository;
 
@@ -12,17 +12,17 @@ public class TaskService implements ITaskService {
 
     private final TaskRepository taskRepository = new TaskRepository();
 
-    public void deleteTask(String uid) throws IllegalStringException {
-        if (uid != "" && uid != null) {
-            taskRepository.deleteTask(uid);
+    public void deleteTask(String uid) throws IllegalArgumentException {
+        if (uid.isEmpty() && uid.equals(null)) {
+            throw new IllegalArgumentException();
         } else {
-            throw new IllegalStringException();
+            taskRepository.deleteTask(uid);
         }
     }
 
     public void addTask(Task task) {
         if (task == null) {
-            throw new NullPointerException();
+            return;
         } else {
             taskRepository.addTask(task);
         }
@@ -32,20 +32,27 @@ public class TaskService implements ITaskService {
         return taskRepository.getAllTasks();
     }
 
-    public Task getTask(String uid) throws IllegalStringException {
-        if (uid != "" && uid != null) {
-            return taskRepository.getTask(uid);
+    @Override
+    public Task getTask(String uid) throws IllegalArgumentException {
+        if (uid.isEmpty() || uid.equals(null)) {
+            throw new IllegalArgumentException();
         } else {
-            throw new IllegalStringException();
+            return taskRepository.getTask(uid);
         }
     }
 
-    public void updateTask(String uid, Task task) throws IllegalCallParameterException {
-        if (uid != "" && uid != null && task != null) {
-            taskRepository.updateTask(uid, task);
+    public void updateTask(String uid, Task task) throws IllegalArgumentException {
+        if (uid.isEmpty() || uid.equals(null) || task.equals(null)) {
+            throw new IllegalArgumentException();
         } else {
-            throw new IllegalCallParameterException();
+            taskRepository.updateTask(uid, task);
         }
+    }
+
+    @Override
+    public void mergeTasks(List<Task> tasks) {
+        if (tasks == null) return;
+        taskRepository.mergeTasks(tasks);
     }
 
 }

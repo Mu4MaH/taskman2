@@ -27,6 +27,12 @@ public class AssigneeRepository {
         return new ArrayList<Assignee>(stuff.values());
     }
 
+    public void merge(final List<Assignee> assignees) {
+        for (Assignee assignee : assignees) {
+            stuff.put(assignee.getUid(),assignee);
+        }
+    }
+
 }
 
 

@@ -1,5 +1,6 @@
-package org.alex.command;
+package org.alex.command.data;
 
+import org.alex.command.AbstractCommand;
 import org.alex.controller.Bootstrap;
 import org.alex.entity.Assignee;
 import org.alex.entity.Project;
@@ -39,7 +40,7 @@ public class DataFlushToDiskCommand extends AbstractCommand {
             oos.writeObject(assignees);
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("IO exception");
+            System.out.println("Ошибка ввода/вывода");
         }
     }
 

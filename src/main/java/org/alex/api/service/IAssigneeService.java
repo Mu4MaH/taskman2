@@ -1,5 +1,6 @@
 package org.alex.api.service;
 
+import org.alex.command.AbstractCommand;
 import org.alex.entity.Assignee;
 import org.alex.exception.IllegalStringException;
 
@@ -15,4 +16,7 @@ public interface IAssigneeService {
 
     List<Assignee> getAllAssignee();
 
+    String getAdminGroup();
+
+    void mergeAssignee(List<Assignee> assignees);
 }

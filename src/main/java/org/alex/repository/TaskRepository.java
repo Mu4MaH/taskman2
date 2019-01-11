@@ -32,4 +32,10 @@ public class TaskRepository implements ITaskRepository {
         return new ArrayList(this.tasks.values());
     }
 
+    @Override
+    public void mergeTasks(List<Task> tasks) {
+        for (Task task : tasks)
+            this.tasks.put(task.getUid(), task);
+    }
+
 }

@@ -1,5 +1,6 @@
-package org.alex.command;
+package org.alex.command.task;
 
+import org.alex.command.AbstractCommand;
 import org.alex.controller.Bootstrap;
 import org.alex.entity.Task;
 
@@ -14,22 +15,25 @@ public class TaskCreateCommand extends AbstractCommand {
     @Override
     public void execute(Bootstrap bootstrap) {
         System.out.print("Введите название задачи: ");
-        final Task taskHelper = new Task(bootstrap.getString());
-        final String uid = taskHelper.getUid();
-        System.out.print("Хотите ввести все поля? y(д)/n(н)");
-        final char choice = bootstrap.getString().charAt(0);
-        if (choice == 'y' || choice == 'д') {
+        final Task helperTask = new Task(bootstrap.getNextLine());
+        final String uid = helperTask.getUid();
+        String owner = bootstrap.getSession().getUserId();
+        helperTask.setOwnerId(owner);
+        System.out.print("Хотите ввести все поля? y(д) - да/энтер - нет");
+        final String choice = bootstrap.getNextLine();
+        if ("y".equals(choice) || "д".equals(choice)) {
             System.out.print("Введите количество рабочих часов на выполнение задания: ");
-            taskHelper.setHours(bootstrap.getInt());
+            helperTask.setHours(bootstrap.getNextInt());
             System.out.print("Введите приоритет задачи: \n    1.IDLE \n    2.NORMAL \n    3.URGENT \n    4.FATAL \n>");
-            int tempInt = (bootstrap.getInt());
-            taskHelper.setPriority(tempInt);
-            bootstrap.getTaskService().addTask(taskHelper);
+            final int tempInt = (bootstrap.getNextInt());
+            helperTask.setPriority(tempInt);
+            bootstrap.getTaskService().addTask(helperTask);
         } else {
-            taskHelper.setHours(8);
-            taskHelper.setPriority(1);
-            bootstrap.getTaskService().addTask(taskHelper);
+            helperTask.setHours(8);
+            helperTask.setPriority(1);
+            bootstrap.getTaskService().addTask(helperTask);
         }
+
     }
 
     public String getCommand() {

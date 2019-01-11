@@ -7,9 +7,6 @@ public abstract class AbstractCommand {
     private String command;
     private String description;
 
-    AbstractCommand() {
-    }
-
     public abstract String getCommand();
 
     public abstract String getDescription();

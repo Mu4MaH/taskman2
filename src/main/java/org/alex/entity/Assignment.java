@@ -6,7 +6,6 @@ public class Assignment {
     private String toId;
 
     public Assignment() {
-
     }
 
     public Assignment(String fromId, String toId) {

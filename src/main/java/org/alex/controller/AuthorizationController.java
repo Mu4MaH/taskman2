@@ -7,31 +7,29 @@ import java.util.List;
 
 public class AuthorizationController {
 
-    public void login(Bootstrap bootstrap) throws Exception {
-        System.out.println("-= Система управления задачами вер. 2.0.0 приветствует вас =-\n");
+    private final int MAX_AUTH_TRIES = 3;
 
-        while (true) {
-            System.out.println("Пожалуйста авторизуйтесь");
-            System.out.print("Введите имя входа пользователя (cancel - выход из программы): ");
-            String strHelper = bootstrap.getString();
-            if ("cancel".equals(strHelper.toLowerCase())) System.exit(99);
-            final List<Assignee> listHelper = bootstrap.getAssigneeService().getAllAssignee();
-            for (Assignee assignee : listHelper) {
-                System.out.println(assignee.getLogin() + " ### " + strHelper);
-                if (assignee.getLogin().equals(strHelper)) {
-                    for (int i = 3; i > 0; i--) {
-                        System.out.print("У вас осталось " + i + ((i == 1) ? " попытка" : " попытки") + " ввода пароля. Введите пароль: ");
-                        strHelper = bootstrap.getString();
-                        if (assignee.getPassHash() == strHelper.hashCode()) {
-                            System.out.println("Здравствуйте, " + assignee.getName() + "\n");
-                            bootstrap.execute(new Session(assignee.getUid(), assignee.getLogin()));
-                            return;
-                        }
+    public void authorize(Bootstrap bootstrap) throws Exception {
+        System.out.print("Введите имя входа пользователя (cancel - выход из программы): ");
+        final String loginConsole = bootstrap.getNextLine();
+        if ("cancel".equals(loginConsole.toLowerCase())) System.exit(99);
+        final List<Assignee> listHelper = bootstrap.getAssigneeService().getAllAssignee();
+        for (Assignee assignee : listHelper) {
+            System.out.println(assignee.getLogin() + " ### " + loginConsole);
+            if (loginConsole.equals(assignee.getLogin()))
+                for (int i = 0; i < MAX_AUTH_TRIES; i++) {
+                    System.out.print("У вас осталось " + (MAX_AUTH_TRIES - i) + ((i == 2) ? " попытка" : " попытки")
+                            + " ввода пароля. Введите пароль: ");
+                    final String passwordConsole = bootstrap.getNextLine();
+                    if (assignee.getPassword() == passwordConsole.hashCode()) {
+                        System.out.println("Здравствуйте, " + assignee.getUid() + "\n");
+                        bootstrap.launch(new Session(assignee.getUid()));
+                        return;
                     }
                 }
-            }
-            System.out.println("Нет такого пользователя \n");
         }
+        System.out.println("Нет такого пользователя \n");
+        bootstrap.start();
     }
 
 }

@@ -2,7 +2,6 @@ package org.alex.api.service;
 
 import org.alex.entity.Project;
 import org.alex.exception.IllegalStringException;
-import org.alex.repository.ProjectRepository;
 
 import java.util.List;
 

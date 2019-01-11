@@ -8,8 +8,8 @@ public class Assignee implements Serializable {
     private String uid = UUID.randomUUID().toString();
     private String name = "Unnamed_assignee";
     private String login;
-    private String password;
-    private String group; //TODO
+    private int password;
+    private String group;
     private boolean isAdmin = false;
 
     public Assignee() {
@@ -35,12 +35,12 @@ public class Assignee implements Serializable {
         this.login = login;
     }
 
-    public int getPassHash() {
-        return this.password.hashCode();
+    public int getPassword() {
+        return this.password;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = password.hashCode();
     }
 
     public boolean isAdmin() {
@@ -73,7 +73,7 @@ public class Assignee implements Serializable {
         this.uid = UUID.randomUUID().toString();
         this.name = name;
         this.login = login;
-        this.password = password;
+        this.password = password.hashCode();
         this.group = group;
         this.isAdmin = isAdmin;
     }
@@ -82,6 +82,6 @@ public class Assignee implements Serializable {
 
     @Override
     public String toString() {
-        return this.uid + " # " + this.name + " : " + this.login;
+        return this.uid + " : " + this.name + " : " + this.login + " : " + this.group;
     }
 }

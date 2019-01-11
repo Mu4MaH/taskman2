@@ -22,7 +22,7 @@ public class LogoutCommand extends AbstractCommand {
     public void execute(Bootstrap bootstrap) throws Exception {
         bootstrap.clearSession();
         AuthorizationController authorizationController = new AuthorizationController();
-        authorizationController.login(bootstrap);
+        authorizationController.authorize(bootstrap);
     }
 
 }

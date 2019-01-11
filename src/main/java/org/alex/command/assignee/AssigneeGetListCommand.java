@@ -1,5 +1,6 @@
-package org.alex.command;
+package org.alex.command.assignee;
 
+import org.alex.command.AbstractCommand;
 import org.alex.controller.Bootstrap;
 import org.alex.entity.Assignee;
 

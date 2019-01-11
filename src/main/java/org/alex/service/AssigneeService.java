@@ -2,14 +2,14 @@ package org.alex.service;
 
 import org.alex.api.service.IAssigneeService;
 import org.alex.entity.Assignee;
-import org.alex.exception.IllegalStringException;
 import org.alex.repository.AssigneeRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AssigneeService implements IAssigneeService {
 
-    private final AssigneeRepository stuff = new AssigneeRepository();
+    private final AssigneeRepository assigneeRepository = new AssigneeRepository();
 
     {
         Assignee admin = new Assignee();
@@ -18,35 +18,69 @@ public class AssigneeService implements IAssigneeService {
         admin.setGroup("Administrators");
         admin.setName("Администратор");
         admin.setAdmin();
-        stuff.addAssignee(admin);
+        assigneeRepository.addAssignee(admin);
+
+        Assignee odmen = new Assignee();
+        odmen.setLogin("odmen");
+        odmen.setPassword("odmen");
+        odmen.setGroup("Administrators");
+        odmen.setName("Одмен");
+        odmen.setAdmin();
+        assigneeRepository.addAssignee(odmen);
+
+        assigneeRepository.addAssignee(new Assignee("manager", "manager", "manager", "managers", false));
+        assigneeRepository.addAssignee(new Assignee("aaa", "aaa", "aaa", "users", false));
+        assigneeRepository.addAssignee(new Assignee("bbb", "bb", "bbb", "users", false));
     }
 
-    public Assignee getAssigneeByUid(String uid) throws IllegalStringException {
-        if (uid != "" && uid != null) {
-            return this.stuff.getAssigneeByUid(uid);
+    @Override
+    public Assignee getAssigneeByUid(String uid) throws IllegalArgumentException {
+        if (uid.isEmpty() || uid == null) {
+            throw new IllegalArgumentException();
         } else {
-            throw new IllegalStringException();
+            return this.assigneeRepository.getAssigneeByUid(uid);
         }
     }
 
-    public void deleteAssignee(String uid) throws IllegalStringException {
-        if (uid != "" && uid != null) {
-            this.stuff.deleteAssignee(uid);
+    @Override
+    public void deleteAssignee(String uid) throws IllegalArgumentException {
+        if (uid.isEmpty() || uid == null) {
+            throw new IllegalArgumentException();
         } else {
-            throw new IllegalStringException();
+            this.assigneeRepository.deleteAssignee(uid);
         }
     }
 
+    @Override
     public void addAssignee(Assignee assignee) {
         if (assignee == null) {
-            throw new NullPointerException();
+            return;
         } else {
-            this.stuff.addAssignee(assignee);
+            this.assigneeRepository.addAssignee(assignee);
         }
     }
 
+    @Override
     public List<Assignee> getAllAssignee() {
-        return this.stuff.getAllAssignees();
+        return this.assigneeRepository.getAllAssignees();
+    }
+
+    @Override
+    public String getAdminGroup() {
+        String output = "";
+        List<Assignee> helperList = new ArrayList<>(assigneeRepository.getAllAssignees());
+        for (Assignee ass : helperList) {
+            if ("administrators".equals(ass.getGroup().toLowerCase())) {
+                output = output.concat(ass.getUid() + ";");
+            }
+        }
+        return output;
+    }
+
+    @Override
+    public void mergeAssignee(List<Assignee> assignees) {
+        if (assignees == null) return;
+        assigneeRepository.merge(assignees);
     }
 
 }

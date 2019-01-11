@@ -1,5 +1,6 @@
-package org.alex.command;
+package org.alex.command.task;
 
+import org.alex.command.AbstractCommand;
 import org.alex.controller.Bootstrap;
 import org.alex.entity.Task;
 
@@ -8,18 +9,22 @@ import java.util.List;
 
 public class TaskGetListCommand extends AbstractCommand {
 
+    public TaskGetListCommand() {
+        super();
+    }
+
     final public String description = "List of tasks";
     final private String command = "tl";
-
-    public TaskGetListCommand() {
-    }
 
     @Override
     public void execute(Bootstrap bootstrap) {
         int id = 1;
         final List<Task> helperList = new ArrayList<>(bootstrap.getTaskService().getAllTasks());
+        final String adminGroup = bootstrap.getAssigneeService().getAdminGroup();
+        final String loggedUserId = bootstrap.getSession().getUserId();
         for (Task task : helperList) {
-            System.out.println(task.toString());
+            if (loggedUserId.equals(task.getOwnerId()) || adminGroup.contains(loggedUserId))
+                System.out.println(id++ + ". " + task.toString());
         }
     }
 

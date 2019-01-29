@@ -3,38 +3,21 @@ package org.alex.service;
 import org.alex.api.service.IAssigneeService;
 import org.alex.entity.Assignee;
 import org.alex.repository.AssigneeRepository;
+import org.jetbrains.annotations.NotNull;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AssigneeService implements IAssigneeService {
 
-    private final AssigneeRepository repository = new AssigneeRepository();
+    public AssigneeService() {
 
-    {
-        Assignee admin = new Assignee();
-        admin.setLogin("admin");
-        admin.setPassword("admin");
-        admin.setGroup("Administrators");
-        admin.setName("Администратор");
-        admin.setAdmin();
-        repository.add(admin);
-
-        Assignee odmen = new Assignee();
-        odmen.setLogin("odmen");
-        odmen.setPassword("odmen");
-        odmen.setGroup("Administrators");
-        odmen.setName("Одмен");
-        odmen.setAdmin();
-        repository.add(odmen);
-
-        repository.add(new Assignee("manager", "manager", "manager", "managers", false));
-        repository.add(new Assignee("aaa", "aaa", "aaa", "users", false));
-        repository.add(new Assignee("bbb", "bb", "bbb", "users", false));
     }
 
-    @Override
-    public void create(Assignee assignee) {
+    private final AssigneeRepository repository = new AssigneeRepository();
+
+    public void createAssignee(@NotNull final Assignee assignee) {
         if (assignee == null) {
             return;
         } else {
@@ -43,7 +26,7 @@ public class AssigneeService implements IAssigneeService {
     }
 
     @Override
-    public Assignee get(String uid) throws IllegalArgumentException {
+    public Assignee getAssignee(@NotNull final String uid) throws IllegalArgumentException {
         if (uid.isEmpty() || uid == null) {
             throw new IllegalArgumentException();
         } else {
@@ -51,19 +34,30 @@ public class AssigneeService implements IAssigneeService {
         }
     }
 
-    @Override
-    public List<Assignee> getAll() {
-        return this.repository.getAll();
+    public void setConnection(@NotNull final Connection connection) {
+        repository.setConnection(connection);
     }
 
     @Override
-    public void merge(List<Assignee> assignees) {
+    public Assignee getAssigneeByLogin(@NotNull final String login) {
+        for (Assignee a : repository.getAll()) {
+            if (login.equals(a.getLogin())) return a;
+        } return null;
+    }
+
+    @Override
+    public List<Assignee> getAllAssignee() {
+        return repository.getAll();
+    }
+
+    @Override
+    public void mergeAssignee(@NotNull final List<Assignee> assignees) {
         if (assignees == null) return;
         repository.merge(assignees);
     }
 
     @Override
-    public void delete(String uid) throws IllegalArgumentException {
+    public void deleteAssignee(@NotNull final String uid) throws IllegalArgumentException {
         if (uid.isEmpty() || uid == null) {
             throw new IllegalArgumentException();
         } else {
@@ -72,9 +66,9 @@ public class AssigneeService implements IAssigneeService {
     }
 
     @Override
-    public String getAdminGroup() {
+    public String getAssigneeAdminGroup() {
         String output = "";
-        List<Assignee> helperList = new ArrayList<>(repository.getAll());
+        final List<Assignee> helperList = new ArrayList<>(repository.getAll());
         for (Assignee ass : helperList) {
             if ("administrators".equals(ass.getGroup().toLowerCase())) {
                 output = output.concat(ass.getUid() + ";");

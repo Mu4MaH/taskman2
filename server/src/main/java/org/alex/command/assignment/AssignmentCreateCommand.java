@@ -30,7 +30,7 @@ public class AssignmentCreateCommand extends AbstractCommand {
         int i;
         int select;
         System.out.println("Выберите номер пользователя из списка:");
-        final List<Assignee> assignees = bootstrap.getAssigneeService().getAll();
+        final List<Assignee> assignees = bootstrap.getAssigneeService().getAllAssignee();
         i = 0;
         for (Assignee a : assignees) {
             i++;
@@ -41,7 +41,7 @@ public class AssignmentCreateCommand extends AbstractCommand {
         System.out.println("Куда назначать? \n 1.Проект \n 2.Задача");
         final int choice = bootstrap.getNextInt();
         if (choice == 1) {
-            final List<Project> projects = bootstrap.getProjectService().getAll();
+            final List<Project> projects = bootstrap.getProjectService().getAllProject();
             i = 0;
             for (Project p : projects) {
                 i++;
@@ -49,17 +49,17 @@ public class AssignmentCreateCommand extends AbstractCommand {
             }
             System.out.print("Введите номер позиции: ");
             select = bootstrap.getNextInt();
-            bootstrap.getAssignmentService().create(new Assignment(projects.get(select - 1).getUid(), idAssigner));
+            bootstrap.getAssignmentService().assigneeToProject(new Assignment(projects.get(select - 1).getUid(), idAssigner));
         } else {
-            final List<Task> tasks = bootstrap.getTaskService().getAll();
+            final List<Task> tasks = bootstrap.getTaskService().getAllTask();
             i = 0;
             for (Task t : tasks) {
                 i++;
-                System.out.println(i + ". " + t.getName() + " : " + bootstrap.getAssigneeService().get(t.getOwnerId()));
+                System.out.println(i + ". " + t.getName() + " : " + bootstrap.getAssigneeService().getAssignee(t.getOwnerId()));
             }
             System.out.print("Введите номер позиции: ");
             select = bootstrap.getNextInt();
-            bootstrap.getAssignmentService().create(new Assignment(tasks.get(select - 1).getUid(), idAssigner));
+            bootstrap.getAssignmentService().assigneeToTask(new Assignment(tasks.get(select - 1).getUid(), idAssigner));
         }
     }
 

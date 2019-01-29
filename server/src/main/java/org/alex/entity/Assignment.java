@@ -1,32 +1,34 @@
 package org.alex.entity;
 
+import org.jetbrains.annotations.NotNull;
+
 public class Assignment {
 
-    private String fromId;
-    private String toId;
+    private String assignmentId;
+    private String assigningId;
 
     public Assignment() {
     }
 
-    public Assignment(String fromId, String toId) {
-        this.fromId = fromId;
-        this.toId = toId;
+    public Assignment(@NotNull String assignmentId, @NotNull String assigningId) {
+        this.assignmentId = assignmentId;
+        this.assigningId = assigningId;
     }
 
-    public String getFromId() {
-        return fromId;
+    public String getAssignmentId() {
+        return assignmentId;
     }
 
-    public void setFromId(String fromId) {
-        this.fromId = fromId;
+    public void setAssignmentId(@NotNull String assignmentId) {
+        this.assignmentId = assignmentId;
     }
 
-    public String getToId() {
-        return toId;
+    public String getAssigningId() {
+        return assigningId;
     }
 
-    public void setToId(String toId) {
-        this.toId = toId;
+    public void setAssigningId(@NotNull String assigningId) {
+        this.assigningId = assigningId;
     }
 
 }

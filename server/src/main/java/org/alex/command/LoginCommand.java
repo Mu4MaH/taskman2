@@ -2,6 +2,7 @@ package org.alex.command;
 
 import org.alex.controller.Bootstrap;
 import org.alex.entity.Assignee;
+import org.alex.entity.Session;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class LoginCommand extends AbstractCommand {
         System.out.print("Введите имя входа пользователя (cancel - выход из программы): ");
         final String loginConsole = bootstrap.getNextLine();
         if ("cancel".equals(loginConsole.toLowerCase())) System.exit(99);
-        final List<Assignee> listHelper = bootstrap.getAssigneeService().getAll();
+        final List<Assignee> listHelper = bootstrap.getAssigneeService().getAllAssignee();
         for (Assignee assignee : listHelper) {
             System.out.println("DEBUG: " + assignee.getLogin() + " ### " + loginConsole);
             if (loginConsole.equals(assignee.getLogin()))
@@ -36,9 +37,9 @@ public class LoginCommand extends AbstractCommand {
                             + " ввода пароля. Введите пароль: ");
                     final String passwordConsole = bootstrap.getNextLine();
                     if (assignee.getPassword() == passwordConsole.hashCode()) {
-                        System.out.println("Здравствуйте, " + bootstrap.getAssigneeService().get(assignee.getUid()) + "\n");
+                        System.out.println("Здравствуйте, " + bootstrap.getAssigneeService().getAssignee(assignee.getUid()) + "\n");
 //                        bootstrap.generateToken(assignee.getUid());
-                        bootstrap.launch("token");
+                        bootstrap.launch(new Session());
                         return;
                     }
                 }

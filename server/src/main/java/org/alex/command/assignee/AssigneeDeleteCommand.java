@@ -15,7 +15,7 @@ public class AssigneeDeleteCommand extends AbstractCommand {
 
     @Override
     public String getCommand() {
-        return null;
+        return command;
     }
 
     @Override
@@ -24,10 +24,10 @@ public class AssigneeDeleteCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute(Bootstrap bootstrap) throws IllegalStringException { //воркеров в мапу инкремент|воркер можно просить у юзверя ввод числа а не хекс айди
-        if (bootstrap.getAssigneeService().getAdminGroup().contains(bootstrap.getLoggedAssigneeId())) { //порверка на вхождение удаляющего в админы
+    public void execute(Bootstrap bootstrap) throws IllegalStringException {
+        if (bootstrap.getAssigneeService().getAssigneeAdminGroup().contains(bootstrap.getLoggedAssigneeId())) { //порверка на вхождение удаляющего в админы
             int i = 0;
-            final List<Assignee> helperList = new ArrayList<>(bootstrap.getAssigneeService().getAll());
+            final List<Assignee> helperList = new ArrayList<>(bootstrap.getAssigneeService().getAllAssignee());
             for (i = 0; i < helperList.size(); i++) {
                 System.out.println((i + 1) + ". " + helperList.get(i).toString());
             }
@@ -35,7 +35,7 @@ public class AssigneeDeleteCommand extends AbstractCommand {
             System.out.print("Выберите номер удаляемого пользователя: ");
             final int id = bootstrap.getNextInt();
             final String helperString = helperList.get(id-1).getUid();
-            bootstrap.getAssigneeService().delete(helperString);
+            bootstrap.getAssigneeService().deleteAssignee(helperString);
         } else System.out.println("Недостаточно прав на удаление.");
     }
 

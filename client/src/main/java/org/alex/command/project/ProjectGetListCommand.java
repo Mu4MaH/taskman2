@@ -2,7 +2,7 @@ package org.alex.command.project;
 
 import org.alex.command.AbstractCommand;
 import org.alex.controller.Bootstrap;
-import org.alex.entity.Project;
+import org.alex.endpoint.Project;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,14 +18,13 @@ public final class ProjectGetListCommand extends AbstractCommand {
     @Override
     public void execute(Bootstrap bootstrap) {
         int id = 1;
-        final List<Project> helperList = new ArrayList<>(bootstrap.getProjectService().getAll());
-        final String adminGroup = bootstrap.getAssigneeService().getAdminGroup();
+        final List<Project> helperList = new ArrayList<>(bootstrap.getProjectService().getEndpointProjectPort().getAllProject());
+        final String adminGroup = bootstrap.getAssigneeService().getEndpointAssigneePort().getAdminGroup();
         final String loggedUserId = bootstrap.getLoggedAssigneeId();
         for (Project project : helperList) {
             if (loggedUserId.equals(project.getOwnerId()) || adminGroup.contains(loggedUserId))
-             System.out.println(id++ + ". " + project.toString());
+             System.out.println(id++ + ". " + project.getName());
         }
-
     }
 
     public String getCommand() {

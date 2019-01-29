@@ -2,7 +2,7 @@ package org.alex.command.project;
 
 import org.alex.command.AbstractCommand;
 import org.alex.controller.Bootstrap;
-import org.alex.entity.Project;
+import org.alex.endpoint.Project;
 
 public class ProjectCreateCommand extends AbstractCommand {
 
@@ -16,9 +16,10 @@ public class ProjectCreateCommand extends AbstractCommand {
         System.out.print("Введите название проекта: ");
         final String tempStr = bootstrap.getNextLine();
 
-        final Project projectHelper = new Project(tempStr);
+        final Project projectHelper = new Project();
+        projectHelper.setName(tempStr);
         projectHelper.setOwnerId(bootstrap.getLoggedAssigneeId());
-        bootstrap.getProjectService().create(projectHelper);
+        bootstrap.getProjectService().getEndpointProjectPort().createProject(projectHelper);
         System.out.println("Проект с названием " + tempStr + " создан.");
     }
 

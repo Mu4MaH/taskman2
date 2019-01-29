@@ -2,9 +2,10 @@ package org.alex.command.data;
 
 import org.alex.command.AbstractCommand;
 import org.alex.controller.Bootstrap;
-import org.alex.entity.Assignee;
-import org.alex.entity.Project;
-import org.alex.entity.Task;
+import org.alex.endpoint.Assignee;
+import org.alex.endpoint.Assignment;
+import org.alex.endpoint.Project;
+import org.alex.endpoint.Task;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -31,15 +32,17 @@ public class DataFlushToDiskCommand extends AbstractCommand {
 
         final File file;
         file = new File("./data.tm");
-        final Assignee[] assignees = bootstrap.getAssigneeService().getAll().toArray(new Assignee[0]);
-        final Task[] tasks = bootstrap.getTaskService().getAll().toArray(new Task[0]);
-        final Project[] projects = bootstrap.getProjectService().getAll().toArray(new Project[0]);
+        final Assignee[] assignees = bootstrap.getAssigneeService().getEndpointAssigneePort().getAllAssignee().toArray(new Assignee[0]);
+        final Task[] tasks = bootstrap.getTaskService().getEndpointTaskPort().getAllTask().toArray(new Task[0]);
+        final Project[] projects = bootstrap.getProjectService().getEndpointProjectPort().getAllProject().toArray(new Project[0]);
+        final Assignment[] assignments = bootstrap.getAssignmentService().getEndpointAssignmentPort().getAllAssignment().toArray(new Assignment[0]);
         try {
             FileOutputStream fos = new FileOutputStream(file);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(projects);
             oos.writeObject(tasks);
             oos.writeObject(assignees);
+            oos.writeObject(assignments);
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Ошибка ввода/вывода");

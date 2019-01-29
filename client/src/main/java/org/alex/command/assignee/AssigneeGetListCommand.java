@@ -2,7 +2,7 @@ package org.alex.command.assignee;
 
 import org.alex.command.AbstractCommand;
 import org.alex.controller.Bootstrap;
-import org.alex.entity.Assignee;
+import org.alex.endpoint.Assignee;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +25,9 @@ public class AssigneeGetListCommand extends AbstractCommand {
     @Override
     public void execute(Bootstrap bootstrap) {
         int id = 1;
-        final List<Assignee> helperList = new ArrayList<>(bootstrap.getAssigneeService().getAll());
+        final List<Assignee> helperList = new ArrayList<>(bootstrap.getAssigneeService().getEndpointAssigneePort().getAllAssignee());
         for (Assignee assignee : helperList) {
-            System.out.println(assignee.toString());
+            System.out.println(id++ +". " + assignee.getName());
         }
     }
 

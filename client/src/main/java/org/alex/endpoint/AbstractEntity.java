@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "abstractEntity")
 @XmlSeeAlso({
-    Task.class
+    Project.class
 })
 public class AbstractEntity {
 

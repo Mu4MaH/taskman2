@@ -8,7 +8,7 @@ public interface IProjectRepository {
 
     void add(Project project);
 
-    IProjectRepository get(String uid);
+    Project get(String uid);
 
     List<Project> getAll();
 

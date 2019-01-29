@@ -1,21 +1,28 @@
 package org.alex.service;
 
-import org.alex.api.service.AbstractService;
 import org.alex.api.service.ITaskService;
 import org.alex.entity.Task;
 import org.alex.exception.IllegalArgumentException;
 import org.alex.repository.TaskRepository;
+import org.jetbrains.annotations.NotNull;
 
 import javax.jws.WebService;
+import java.sql.Connection;
 import java.util.List;
 
-@WebService
-public class TaskService extends AbstractService<Task> implements ITaskService {
+public class TaskService implements ITaskService {
 
     private final TaskRepository repository = new TaskRepository();
 
+    public TaskService(){
 
-    public void create(Task task) {
+    }
+
+    public void setConnection(@NotNull final Connection connection) {
+        repository.setConnection(connection);
+    }
+
+    public void createTask(@NotNull final Task task) {
         if (task == null) {
             return;
         } else {
@@ -24,7 +31,7 @@ public class TaskService extends AbstractService<Task> implements ITaskService {
     }
 
     @Override
-    public Task get(String uid) throws IllegalArgumentException {
+    public Task getTask(@NotNull final String uid) throws IllegalArgumentException {
         if (uid.isEmpty() || uid.equals(null)) {
             throw new IllegalArgumentException();
         } else {
@@ -32,11 +39,11 @@ public class TaskService extends AbstractService<Task> implements ITaskService {
         }
     }
 
-    public List<Task> getAll() {
+    public List<Task> getAllTask() {
         return repository.getAll();
     }
 
-    public void updateTask(String uid, Task task) throws IllegalArgumentException {
+    public void updateTask(@NotNull final String uid, @NotNull Task task) throws IllegalArgumentException {
         if (uid.isEmpty() || uid.equals(null) || task.equals(null)) {
             throw new IllegalArgumentException();
         } else {
@@ -45,12 +52,12 @@ public class TaskService extends AbstractService<Task> implements ITaskService {
     }
 
     @Override
-    public void merge(List<Task> tasks) {
+    public void mergeTask(@NotNull final List<Task> tasks) {
         if (tasks == null) return;
         repository.merge(tasks);
     }
 
-    public void delete(String uid) throws IllegalArgumentException {
+    public void deleteTask(@NotNull final String uid) throws IllegalArgumentException {
         if (uid.isEmpty() && uid.equals(null)) {
             throw new IllegalArgumentException();
         } else {

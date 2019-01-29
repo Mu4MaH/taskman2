@@ -2,9 +2,10 @@ package org.alex.command.data;
 
 import org.alex.command.AbstractCommand;
 import org.alex.controller.Bootstrap;
-import org.alex.entity.Assignee;
-import org.alex.entity.Project;
-import org.alex.entity.Task;
+import org.alex.endpoint.Assignee;
+import org.alex.endpoint.Assignment;
+import org.alex.endpoint.Project;
+import org.alex.endpoint.Task;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,6 +36,7 @@ public class DataLoadFromDiskCommand extends AbstractCommand {
         final Project[] projects = (Project[]) ois.readObject();
         final Task[] tasks = (Task[]) ois.readObject();
         final Assignee[] assignees = (Assignee[]) ois.readObject();
+        final Assignment[] assignments = (Assignment[]) ois.readObject();
         ois.close();
         fis.close();
     }

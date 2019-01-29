@@ -1,6 +1,7 @@
 package org.alex.entity;
 
 import org.alex.api.entity.AbstractEntity;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -15,7 +16,7 @@ public class Project extends AbstractEntity implements Serializable {
         return ownerId;
     }
 
-    public void setOwnerId(String ownerId) {
+    public void setOwnerId(@NotNull String ownerId) {
         this.ownerId = ownerId;
     }
 
@@ -23,7 +24,7 @@ public class Project extends AbstractEntity implements Serializable {
         this.name = "default";
     }
 
-    public Project(String name) {
+    public Project(@NotNull String name) {
         this.name = name;
     }
 
@@ -31,7 +32,7 @@ public class Project extends AbstractEntity implements Serializable {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(@NotNull String name) {
         this.name = name;
     }
 
@@ -39,7 +40,7 @@ public class Project extends AbstractEntity implements Serializable {
         return uid;
     }
 
-    public void setUid(String uid) {
+    public void setUid(@NotNull String uid) {
         this.uid = uid;
     }
 
@@ -48,4 +49,9 @@ public class Project extends AbstractEntity implements Serializable {
         return this.uid + " : " + this.name;
     }
 
+    public Project(@NotNull String uid, @NotNull String name, @NotNull String ownerId) {
+        this.uid = uid;
+        this.name = name;
+        this.ownerId = ownerId;
+    }
 }

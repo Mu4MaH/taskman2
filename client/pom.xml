@@ -50,6 +50,9 @@
                                 <wsdlOption>
                                     <wsdl>http://localhost:888/project?wsdl</wsdl>
                                 </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>http://localhost:888/auth?wsdl</wsdl>
+                                </wsdlOption>
                             </wsdlOptions>
                         </configuration>
                         <goals>

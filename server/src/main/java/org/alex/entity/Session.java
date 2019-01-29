@@ -1,5 +1,7 @@
 package org.alex.entity;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -13,6 +15,11 @@ public class Session {
         this.timestamp = new Date().getTime();
     }
 
+    @Override
+    public String toString() {
+        return sessionId + ":" + userId + ":" + timestamp;
+    }
+
     public String getSessionId() {
         return sessionId;
     }
@@ -21,7 +28,7 @@ public class Session {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(@NotNull String userId) {
         this.userId = userId;
     }
 
@@ -29,7 +36,7 @@ public class Session {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
+    public void setTimestamp(@NotNull long timestamp) {
         this.timestamp = new Date().getTime();
     }
 

@@ -2,7 +2,7 @@ package org.alex.command.task;
 
 import org.alex.command.AbstractCommand;
 import org.alex.controller.Bootstrap;
-import org.alex.entity.Task;
+import org.alex.endpoint.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,12 +19,12 @@ public class TaskGetListCommand extends AbstractCommand {
     @Override
     public void execute(Bootstrap bootstrap) {
         int id = 1;
-        final List<Task> helperList = new ArrayList<>(bootstrap.getTaskService().getAll());
-        final String adminGroup = bootstrap.getAssigneeService().getAdminGroup();
+        final List<Task> helperList = new ArrayList<>(bootstrap.getTaskService().getEndpointTaskPort().getAllTask());
+        final String adminGroup = bootstrap.getAssigneeService().getEndpointAssigneePort().getAdminGroup();
         final String loggedUserId = bootstrap.getLoggedAssigneeId();
         for (Task task : helperList) {
             if (loggedUserId.equals(task.getOwnerId()) || adminGroup.contains(loggedUserId))
-                System.out.println(id++ + ". " + task.toString());
+                System.out.println(id++ + ". задача. Название: " + task.getName() + ". Оставшееся время: " + task.getHours() + ". Статус: " + task.getState());
         }
     }
 

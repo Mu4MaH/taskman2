@@ -3,6 +3,7 @@ package org.alex.entity;
 import org.alex.api.entity.AbstractEntity;
 import org.alex.enumerated.Priority;
 import org.alex.enumerated.State;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -11,7 +12,7 @@ public class Task extends AbstractEntity implements Serializable {
 
     private String uid = String.valueOf(UUID.randomUUID());
     private String name = "New_task";
-    private int hours = 0; //TODO: время в часах, при выдаче инфы пользователю пересчёт в рабочие дни /8 + остаток в часах
+    private Integer hours = 0; //TODO: время в часах, при выдаче инфы пользователю пересчёт в рабочие дни /8 + остаток в часах
     private State state = State.OPEN;
     private Priority priority = Priority.IDLE;
     private String ownerId;
@@ -23,11 +24,11 @@ public class Task extends AbstractEntity implements Serializable {
         return ownerId;
     }
 
-    public void setOwnerId(String ownerId) {
+    public void setOwnerId(@NotNull String ownerId) {
         this.ownerId = ownerId;
     }
 
-    public Task(String name) {
+    public Task(@NotNull String name) {
         this.name = name;
     }
 
@@ -45,7 +46,7 @@ public class Task extends AbstractEntity implements Serializable {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(@NotNull String name) {
         this.name = name;
     }
 
@@ -53,7 +54,7 @@ public class Task extends AbstractEntity implements Serializable {
         return uid;
     }
 
-    public void setUid(String uid) {
+    public void setUid(@NotNull String uid) {
         this.uid = uid;
     }
 
@@ -61,7 +62,7 @@ public class Task extends AbstractEntity implements Serializable {
         return hours;
     }
 
-    public void setHours(int hours) {
+    public void setHours(@NotNull int hours) {
         this.hours = hours;
     }
 
@@ -69,26 +70,59 @@ public class Task extends AbstractEntity implements Serializable {
         return state;
     }
 
-    public void setState(State state) {
-        this.state = state;
+    public void setState(@NotNull String state) {
+        switch (state.toLowerCase()) {
+            case "open":
+                this.state = State.OPEN;
+                break;
+            case "set":
+                this.state = State.SET;
+                break;
+            case "inwork":
+                this.state = State.INWORK;
+                break;
+            case "finished":
+                this.state = State.FINISHED;
+
+        }
+
     }
 
     public Priority getPriority() {
         return priority;
     }
 
-    public void setPriority(Priority priority) {
-        this.priority = priority;
+    public void setPriority(@NotNull String priority) {
+        switch (priority.toLowerCase()) {
+            case "idle":
+                this.priority = Priority.IDLE;
+                break;
+            case "normal":
+                this.priority = Priority.NORMAL;
+                break;
+            case "urgent":
+                this.priority = Priority.URGENT;
+                break;
+            case "fatal":
+                this.priority = Priority.FATAL;
+                break;
+        }
     }
 
     @Override
     public String toString() {
-        return "Task{" +
+        return "Задача {" +
                 "uid='" + uid + '\'' +
-                ", name='" + name + '\'' +
-                ", state=" + state +
-                ", priority=" + priority +
+                ", name = '" + name + '\'' +
+                ", время = " + hours/8 + " рабочих дней и " + hours%8 + " часов." +
+                ", state = " + state +
+                ", priority = " + priority +
                 '}';
     }
 
+
+    public boolean equals(@NotNull Task task) {
+        if (task == null) return false;
+        return this.name.equals(task.getName());
+    }
 }

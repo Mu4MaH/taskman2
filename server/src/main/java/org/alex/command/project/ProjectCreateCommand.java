@@ -18,7 +18,7 @@ public class ProjectCreateCommand extends AbstractCommand {
 
         final Project projectHelper = new Project(tempStr);
         projectHelper.setOwnerId(bootstrap.getLoggedAssigneeId());
-        bootstrap.getProjectService().create(projectHelper);
+        bootstrap.getProjectService().createProject(projectHelper);
         System.out.println("Проект с названием " + tempStr + " создан.");
     }
 

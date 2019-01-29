@@ -25,8 +25,8 @@ public class TaskDeleteCommand extends AbstractCommand {
     @Override
     public void execute(Bootstrap bootstrap) throws IllegalArgumentException, IllegalStringException {
         int n = 1;
-        final List<Task> helperList = new ArrayList<>(bootstrap.getTaskService().getAll());
-        final String adminGroup = bootstrap.getAssigneeService().getAdminGroup();
+        final List<Task> helperList = new ArrayList<>(bootstrap.getTaskService().getAllTask());
+        final String adminGroup = bootstrap.getAssigneeService().getAssigneeAdminGroup();
         final String loggedUserId = bootstrap.getLoggedAssigneeId();
         final boolean inAdmins = adminGroup.contains(loggedUserId);
         if (inAdmins)
@@ -39,7 +39,7 @@ public class TaskDeleteCommand extends AbstractCommand {
             return;
         } else {
             String strId = helperList.get(id - 1).getUid();
-            bootstrap.getTaskService().delete(strId);
+            bootstrap.getTaskService().deleteTask(strId);
         }
     }
 

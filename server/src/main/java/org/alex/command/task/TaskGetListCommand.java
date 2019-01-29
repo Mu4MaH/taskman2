@@ -19,8 +19,8 @@ public class TaskGetListCommand extends AbstractCommand {
     @Override
     public void execute(Bootstrap bootstrap) {
         int id = 1;
-        final List<Task> helperList = new ArrayList<>(bootstrap.getTaskService().getAll());
-        final String adminGroup = bootstrap.getAssigneeService().getAdminGroup();
+        final List<Task> helperList = new ArrayList<>(bootstrap.getTaskService().getAllTask());
+        final String adminGroup = bootstrap.getAssigneeService().getAssigneeAdminGroup();
         final String loggedUserId = bootstrap.getLoggedAssigneeId();
         for (Task task : helperList) {
             if (loggedUserId.equals(task.getOwnerId()) || adminGroup.contains(loggedUserId))

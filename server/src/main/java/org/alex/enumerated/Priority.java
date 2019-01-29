@@ -12,15 +12,15 @@ public enum Priority {
         this.index = index;
     }
 
-    public int getIndex() {
-        return this.index;
-    }
+//    public int getIndex() {
+//        return this.index;
+//    }
 
-    public Priority setById(int index) {
-        for (Priority p : Priority.values()) {
-            if (p.index == index)
-                return p;
-        }
-        return Priority.IDLE; // if index is invalid
-    }
+//    public Priority setById(int index) {
+//        for (Priority p : Priority.values()) {
+//            if (p.index == index)
+//                return p;
+//        }
+//        return Priority.IDLE; // if index is invalid
+//    }
 }

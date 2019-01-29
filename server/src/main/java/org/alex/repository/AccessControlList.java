@@ -1,7 +1,8 @@
 package org.alex.repository;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /*************************************/
@@ -15,11 +16,11 @@ public class AccessControlList {
 
     private final Map<String, String> acl = new HashMap<>();
 
-    public String getObjectACL(String uidWhere) {
+    public String getObjectACL(@NotNull String uidWhere) {
         return acl.get(uidWhere);
     }
 
-    public void setObjectACL(String uidWhere, String uidWho) {
+    public void setObjectACL(@NotNull String uidWhere, @NotNull String uidWho) {
         acl.put(uidWhere, uidWho);
     }
 

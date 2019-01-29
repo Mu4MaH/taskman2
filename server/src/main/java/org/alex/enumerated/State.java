@@ -13,15 +13,15 @@ public enum State {
         this.index = index;
     }
 
-    public State setById(int index) {
-        for (State s : State.values()) {
-            if (s.index == index)
-                return s;
-        }
-        return State.OPEN;
-    }
-
-    public int getIndex() {
-        return index;
-    }
+//    public State setById(int index) {
+//        for (State s : State.values()) {
+//            if (s.index == index)
+//                return s;
+//        }
+//        return State.OPEN;
+//    }
+//
+//    public int getIndex() {
+//        return index;
+//    }
 }

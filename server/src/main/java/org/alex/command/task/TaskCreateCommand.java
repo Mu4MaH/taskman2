@@ -3,7 +3,6 @@ package org.alex.command.task;
 import org.alex.command.AbstractCommand;
 import org.alex.controller.Bootstrap;
 import org.alex.entity.Task;
-import org.alex.enumerated.Priority;
 
 public class TaskCreateCommand extends AbstractCommand {
 
@@ -28,16 +27,25 @@ public class TaskCreateCommand extends AbstractCommand {
             helperTask.setHours(bootstrap.getNextInt());
             System.out.print("Введите приоритет задачи: \n    1.IDLE \n    2.NORMAL \n    3.URGENT \n    4.FATAL \n>");
             final int tempInt = (bootstrap.getNextInt());
-            Priority priority = Priority.IDLE;
-            for (Priority p : Priority.values()) {
-                if (p.getIndex() == tempInt) priority = p;
+            switch (tempInt) {
+                case 1:
+                    helperTask.setPriority("idle");
+                    break;
+                case 2:
+                    helperTask.setPriority("normal");
+                    break;
+                case 3:
+                    helperTask.setPriority("urgent");
+                    break;
+                case 4:
+                    helperTask.setPriority("fatal");
+                    break;
             }
-            helperTask.setPriority(priority);
-            bootstrap.getTaskService().create(helperTask);
+            bootstrap.getTaskService().createTask(helperTask);
         } else {
             helperTask.setHours(8);
-            helperTask.setPriority(Priority.IDLE);
-            bootstrap.getTaskService().create(helperTask);
+            helperTask.setPriority("idle");
+            bootstrap.getTaskService().createTask(helperTask);
         }
 
     }

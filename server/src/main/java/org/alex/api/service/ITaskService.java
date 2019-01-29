@@ -3,19 +3,24 @@ package org.alex.api.service;
 import org.alex.entity.Task;
 import org.alex.exception.IllegalArgumentException;
 
+import javax.xml.bind.annotation.XmlTransient;
+import java.sql.Connection;
 import java.util.List;
 
+@XmlTransient
 public interface ITaskService {
 
-    void delete(String uid) throws IllegalArgumentException;
+    void deleteTask(String uid) throws IllegalArgumentException;
 
-    void create(Task task);
+    void createTask(Task task);
 
-    List<Task> getAll();
+    List<Task> getAllTask();
 
-    Task get(String uid) throws IllegalArgumentException;
+    Task getTask(String uid) throws IllegalArgumentException;
 
     void updateTask(String uid, Task task) throws IllegalArgumentException;
 
-    void merge(List<Task> tasks);
+    void mergeTask(List<Task> tasks);
+
+    void setConnection(Connection connection);
 }

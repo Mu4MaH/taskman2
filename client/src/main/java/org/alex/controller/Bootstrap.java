@@ -16,14 +16,8 @@ import org.alex.command.project.ProjectGetListCommand;
 import org.alex.command.project.ProjectGetWorkersCommand;
 import org.alex.command.task.*;
 import org.alex.endpoint.*;
-import org.alex.entity.Assignee;
 import org.alex.entity.Domain;
-import org.alex.entity.Project;
 
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
-import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,23 +31,49 @@ public class Bootstrap {
             ProjectCreateCommand.class, ProjectGetListCommand.class, ProjectGetWorkersCommand.class, TaskCreateCommand.class, TaskDeleteCommand.class,
             TaskGetListCommand.class, TaskGetWorkersCommand.class, TaskViewCommand.class, HelpCommand.class, LogoutCommand.class, QuitCommand.class};
 
+    private final EndpointTaskService endpointTaskService = new EndpointTaskService();
+    private final EndpointProjectService endpointProjectService = new EndpointProjectService();
+    private final EndpointAssigneeService endpointAssigneeService = new EndpointAssigneeService();
+    private final EndpointAssignmentService endpointAssignmentService = new EndpointAssignmentService();
+    private final EndpointAuthorizationService endpointAuthorizationService = new EndpointAuthorizationService();
 
-
-    private final EndpointTaskService endpointTaskService = (EndpointTaskService) new EndpointTaskServiceService();
-    private final EndpointProjectService endpointProjectService = (EndpointProjectService) new EndpointProjectServiceService();
-    private final EndpointAssigneeService endpointAssigneeService = (EndpointAssigneeService) new EndpointAssigneeServiceService();
-    private final EndpointAssignmentService endpointAssignmentService = (EndpointAssignmentService) new EndpointAssignmentServiceService();
     private final Scanner scanner = new Scanner(System.in);
     private final int MAX_AUTH_TRIES = 3;
     private final Map<String, AbstractCommand> commandMap = new HashMap<>();
+    private final Domain domain = new Domain();
 
     private String loggedAssigneeId;
-    private SecretKeySpec masterSecretKey = null;
 
-    public Bootstrap() throws NoSuchAlgorithmException, NoSuchPaddingException {
+    public Bootstrap() {
     }
 
-    public void launch() throws Exception {
+    public void authorize() throws Exception {
+        System.out.print("Введите имя входа пользователя (cancel - выход из программы): ");
+        final String loginConsole = getNextLine();
+        if ("cancel".equals(loginConsole.toLowerCase())) System.exit(99);
+        if (  endpointAuthorizationService.getEndpointAuthorizationPort().loginCheck(loginConsole)) {
+            for (int i = 0; i < MAX_AUTH_TRIES; i++) {
+                Assignee ass = endpointAssigneeService.getEndpointAssigneePort().getAssigneeByLogin(loginConsole);
+                System.out.print("У вас осталось " + (MAX_AUTH_TRIES - i) + ((i == 2) ? " попытка" : " попытки")
+                        + " ввода пароля. Введите пароль: ");
+                final String passwordConsole = getNextLine();
+                if (endpointAuthorizationService.getEndpointAuthorizationPort().passwordCheck(loginConsole, passwordConsole.hashCode())) {
+                    Session session = new Session();
+                    session.setUserId(ass.getUid());
+                    loggedAssigneeId = session.getUserId();
+                    System.out.println("Здравствуйте, " + ass.getName() + "\n");
+                    launch(session);
+                    return;
+                }
+            }
+        }
+
+        System.out.println("Нет такого пользователя \n");
+        authorize();
+    }
+
+
+    public void launch(Session session) throws Exception {
         createCommands(COMMANDS);
         System.out.println(" -= Добро пожаловать в консоль управления задачами =-\n");
         System.out.println("Список команд:");
@@ -90,8 +110,15 @@ public class Bootstrap {
 
     /***************/
 
-    public void logout() {
+    public String logout() throws GeneralSecurityException_Exception, UnsupportedEncodingException_Exception {
+        Session session = new Session();
+        session.setUserId(loggedAssigneeId);
         loggedAssigneeId = null;
+        return endpointAuthorizationService.getEndpointAuthorizationPort().createToken(session);
+    }
+
+    public Domain getDomain() {
+        return domain;
     }
 
     public String getLoggedAssigneeId() {
@@ -126,13 +153,8 @@ public class Bootstrap {
         }
     }
 
-    public void setMasterSecretKey (SecretKeySpec secretKeySpec) {
-        this.masterSecretKey = secretKeySpec;
+    public void setLoggedAssigneeId(String loggedAssigneeId) {
+        this.loggedAssigneeId = loggedAssigneeId;
     }
-
-    public SecretKey getMasterSecretKey () {
-        return this.masterSecretKey;
-    }
-
 
 }

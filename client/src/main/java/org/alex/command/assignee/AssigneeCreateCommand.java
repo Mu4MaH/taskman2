@@ -2,7 +2,7 @@ package org.alex.command.assignee;
 
 import org.alex.command.AbstractCommand;
 import org.alex.controller.Bootstrap;
-import org.alex.entity.Assignee;
+import org.alex.endpoint.Assignee;
 
 public class AssigneeCreateCommand extends AbstractCommand {
 
@@ -27,9 +27,9 @@ public class AssigneeCreateCommand extends AbstractCommand {
         System.out.println("Введите логин пользователя");
         helperAss.setLogin(bootstrap.getNextLine());
         System.out.println("Введите пароль пользователя");
-        helperAss.setPassword(bootstrap.getNextLine());
+        helperAss.setPassword(bootstrap.getNextLine().hashCode());
         helperAss.setGroup("users");
-        bootstrap.getAssigneeService().create(helperAss);
+        bootstrap.getAssigneeService().getEndpointAssigneePort().createAssignee(helperAss);
     }
 
 }

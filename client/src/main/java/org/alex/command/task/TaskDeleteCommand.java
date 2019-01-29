@@ -2,8 +2,8 @@ package org.alex.command.task;
 
 import org.alex.command.AbstractCommand;
 import org.alex.controller.Bootstrap;
-import org.alex.entity.Task;
-import org.alex.exception.IllegalStringException;
+import org.alex.endpoint.IllegalArgumentException_Exception;
+import org.alex.endpoint.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +22,10 @@ public class TaskDeleteCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute(Bootstrap bootstrap) throws IllegalArgumentException, IllegalStringException {
+    public void execute(Bootstrap bootstrap) throws IllegalArgumentException, IllegalArgumentException_Exception {
         int n = 1;
-        final List<Task> helperList = new ArrayList<>(bootstrap.getTaskService().getAll());
-        final String adminGroup = bootstrap.getAssigneeService().getAdminGroup();
+        final List<Task> helperList = new ArrayList<>(bootstrap.getTaskService().getEndpointTaskPort().getAllTask());
+        final String adminGroup = bootstrap.getAssigneeService().getEndpointAssigneePort().getAdminGroup();
         final String loggedUserId = bootstrap.getLoggedAssigneeId();
         final boolean inAdmins = adminGroup.contains(loggedUserId);
         if (inAdmins)
@@ -38,7 +38,7 @@ public class TaskDeleteCommand extends AbstractCommand {
             return;
         } else {
             String strId = helperList.get(id - 1).getUid();
-            bootstrap.getTaskService().delete(strId);
+            bootstrap.getTaskService().getEndpointTaskPort().deleteTask(strId);
         }
     }
 

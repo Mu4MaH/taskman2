@@ -18,8 +18,8 @@ public final class ProjectGetListCommand extends AbstractCommand {
     @Override
     public void execute(Bootstrap bootstrap) {
         int id = 1;
-        final List<Project> helperList = new ArrayList<>(bootstrap.getProjectService().getAll());
-        final String adminGroup = bootstrap.getAssigneeService().getAdminGroup();
+        final List<Project> helperList = new ArrayList<>(bootstrap.getProjectService().getAllProject());
+        final String adminGroup = bootstrap.getAssigneeService().getAssigneeAdminGroup();
         final String loggedUserId = bootstrap.getLoggedAssigneeId();
         for (Project project : helperList) {
             if (loggedUserId.equals(project.getOwnerId()) || adminGroup.contains(loggedUserId))

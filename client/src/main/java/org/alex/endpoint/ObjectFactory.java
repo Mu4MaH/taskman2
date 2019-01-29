@@ -24,17 +24,16 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _IllegalArgumentException_QNAME = new QName("http://endpoint.alex.org/", "IllegalArgumentException");
-    private final static QName _Create_QNAME = new QName("http://endpoint.alex.org/", "create");
-    private final static QName _CreateResponse_QNAME = new QName("http://endpoint.alex.org/", "createResponse");
-    private final static QName _Delete_QNAME = new QName("http://endpoint.alex.org/", "delete");
-    private final static QName _DeleteResponse_QNAME = new QName("http://endpoint.alex.org/", "deleteResponse");
-    private final static QName _Get_QNAME = new QName("http://endpoint.alex.org/", "get");
-    private final static QName _GetAll_QNAME = new QName("http://endpoint.alex.org/", "getAll");
-    private final static QName _GetAllResponse_QNAME = new QName("http://endpoint.alex.org/", "getAllResponse");
-    private final static QName _GetResponse_QNAME = new QName("http://endpoint.alex.org/", "getResponse");
-    private final static QName _Merge_QNAME = new QName("http://endpoint.alex.org/", "merge");
-    private final static QName _MergeResponse_QNAME = new QName("http://endpoint.alex.org/", "mergeResponse");
+    private final static QName _GeneralSecurityException_QNAME = new QName("http://endpoint.alex.org/", "GeneralSecurityException");
+    private final static QName _UnsupportedEncodingException_QNAME = new QName("http://endpoint.alex.org/", "UnsupportedEncodingException");
+    private final static QName _CreateToken_QNAME = new QName("http://endpoint.alex.org/", "createToken");
+    private final static QName _CreateTokenResponse_QNAME = new QName("http://endpoint.alex.org/", "createTokenResponse");
+    private final static QName _LoginCheck_QNAME = new QName("http://endpoint.alex.org/", "loginCheck");
+    private final static QName _LoginCheckResponse_QNAME = new QName("http://endpoint.alex.org/", "loginCheckResponse");
+    private final static QName _PasswordCheck_QNAME = new QName("http://endpoint.alex.org/", "passwordCheck");
+    private final static QName _PasswordCheckResponse_QNAME = new QName("http://endpoint.alex.org/", "passwordCheckResponse");
+    private final static QName _TokenCheck_QNAME = new QName("http://endpoint.alex.org/", "tokenCheck");
+    private final static QName _TokenCheckResponse_QNAME = new QName("http://endpoint.alex.org/", "tokenCheckResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.alex.endpoint
@@ -44,206 +43,181 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link IllegalArgumentException }
+     * Create an instance of {@link GeneralSecurityException }
      * 
      */
-    public IllegalArgumentException createIllegalArgumentException() {
-        return new IllegalArgumentException();
+    public GeneralSecurityException createGeneralSecurityException() {
+        return new GeneralSecurityException();
     }
 
     /**
-     * Create an instance of {@link Create }
+     * Create an instance of {@link UnsupportedEncodingException }
      * 
      */
-    public Create createCreate() {
-        return new Create();
+    public UnsupportedEncodingException createUnsupportedEncodingException() {
+        return new UnsupportedEncodingException();
     }
 
     /**
-     * Create an instance of {@link CreateResponse }
+     * Create an instance of {@link CreateToken }
      * 
      */
-    public CreateResponse createCreateResponse() {
-        return new CreateResponse();
+    public CreateToken createCreateToken() {
+        return new CreateToken();
     }
 
     /**
-     * Create an instance of {@link Delete }
+     * Create an instance of {@link CreateTokenResponse }
      * 
      */
-    public Delete createDelete() {
-        return new Delete();
+    public CreateTokenResponse createCreateTokenResponse() {
+        return new CreateTokenResponse();
     }
 
     /**
-     * Create an instance of {@link DeleteResponse }
+     * Create an instance of {@link LoginCheck }
      * 
      */
-    public DeleteResponse createDeleteResponse() {
-        return new DeleteResponse();
+    public LoginCheck createLoginCheck() {
+        return new LoginCheck();
     }
 
     /**
-     * Create an instance of {@link Get }
+     * Create an instance of {@link LoginCheckResponse }
      * 
      */
-    public Get createGet() {
-        return new Get();
+    public LoginCheckResponse createLoginCheckResponse() {
+        return new LoginCheckResponse();
     }
 
     /**
-     * Create an instance of {@link GetAll }
+     * Create an instance of {@link PasswordCheck }
      * 
      */
-    public GetAll createGetAll() {
-        return new GetAll();
+    public PasswordCheck createPasswordCheck() {
+        return new PasswordCheck();
     }
 
     /**
-     * Create an instance of {@link GetAllResponse }
+     * Create an instance of {@link PasswordCheckResponse }
      * 
      */
-    public GetAllResponse createGetAllResponse() {
-        return new GetAllResponse();
+    public PasswordCheckResponse createPasswordCheckResponse() {
+        return new PasswordCheckResponse();
     }
 
     /**
-     * Create an instance of {@link GetResponse }
+     * Create an instance of {@link TokenCheck }
      * 
      */
-    public GetResponse createGetResponse() {
-        return new GetResponse();
+    public TokenCheck createTokenCheck() {
+        return new TokenCheck();
     }
 
     /**
-     * Create an instance of {@link Merge }
+     * Create an instance of {@link TokenCheckResponse }
      * 
      */
-    public Merge createMerge() {
-        return new Merge();
+    public TokenCheckResponse createTokenCheckResponse() {
+        return new TokenCheckResponse();
     }
 
     /**
-     * Create an instance of {@link MergeResponse }
+     * Create an instance of {@link Session }
      * 
      */
-    public MergeResponse createMergeResponse() {
-        return new MergeResponse();
+    public Session createSession() {
+        return new Session();
     }
 
     /**
-     * Create an instance of {@link Task }
+     * Create an instance of {@link JAXBElement }{@code <}{@link GeneralSecurityException }{@code >}}
      * 
      */
-    public Task createTask() {
-        return new Task();
+    @XmlElementDecl(namespace = "http://endpoint.alex.org/", name = "GeneralSecurityException")
+    public JAXBElement<GeneralSecurityException> createGeneralSecurityException(GeneralSecurityException value) {
+        return new JAXBElement<GeneralSecurityException>(_GeneralSecurityException_QNAME, GeneralSecurityException.class, null, value);
     }
 
     /**
-     * Create an instance of {@link AbstractEntity }
+     * Create an instance of {@link JAXBElement }{@code <}{@link UnsupportedEncodingException }{@code >}}
      * 
      */
-    public AbstractEntity createAbstractEntity() {
-        return new AbstractEntity();
+    @XmlElementDecl(namespace = "http://endpoint.alex.org/", name = "UnsupportedEncodingException")
+    public JAXBElement<UnsupportedEncodingException> createUnsupportedEncodingException(UnsupportedEncodingException value) {
+        return new JAXBElement<UnsupportedEncodingException>(_UnsupportedEncodingException_QNAME, UnsupportedEncodingException.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link IllegalArgumentException }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateToken }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.alex.org/", name = "IllegalArgumentException")
-    public JAXBElement<IllegalArgumentException> createIllegalArgumentException(IllegalArgumentException value) {
-        return new JAXBElement<IllegalArgumentException>(_IllegalArgumentException_QNAME, IllegalArgumentException.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.alex.org/", name = "createToken")
+    public JAXBElement<CreateToken> createCreateToken(CreateToken value) {
+        return new JAXBElement<CreateToken>(_CreateToken_QNAME, CreateToken.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Create }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateTokenResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.alex.org/", name = "create")
-    public JAXBElement<Create> createCreate(Create value) {
-        return new JAXBElement<Create>(_Create_QNAME, Create.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.alex.org/", name = "createTokenResponse")
+    public JAXBElement<CreateTokenResponse> createCreateTokenResponse(CreateTokenResponse value) {
+        return new JAXBElement<CreateTokenResponse>(_CreateTokenResponse_QNAME, CreateTokenResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link CreateResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link LoginCheck }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.alex.org/", name = "createResponse")
-    public JAXBElement<CreateResponse> createCreateResponse(CreateResponse value) {
-        return new JAXBElement<CreateResponse>(_CreateResponse_QNAME, CreateResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.alex.org/", name = "loginCheck")
+    public JAXBElement<LoginCheck> createLoginCheck(LoginCheck value) {
+        return new JAXBElement<LoginCheck>(_LoginCheck_QNAME, LoginCheck.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Delete }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link LoginCheckResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.alex.org/", name = "delete")
-    public JAXBElement<Delete> createDelete(Delete value) {
-        return new JAXBElement<Delete>(_Delete_QNAME, Delete.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.alex.org/", name = "loginCheckResponse")
+    public JAXBElement<LoginCheckResponse> createLoginCheckResponse(LoginCheckResponse value) {
+        return new JAXBElement<LoginCheckResponse>(_LoginCheckResponse_QNAME, LoginCheckResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link DeleteResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link PasswordCheck }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.alex.org/", name = "deleteResponse")
-    public JAXBElement<DeleteResponse> createDeleteResponse(DeleteResponse value) {
-        return new JAXBElement<DeleteResponse>(_DeleteResponse_QNAME, DeleteResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.alex.org/", name = "passwordCheck")
+    public JAXBElement<PasswordCheck> createPasswordCheck(PasswordCheck value) {
+        return new JAXBElement<PasswordCheck>(_PasswordCheck_QNAME, PasswordCheck.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Get }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link PasswordCheckResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.alex.org/", name = "get")
-    public JAXBElement<Get> createGet(Get value) {
-        return new JAXBElement<Get>(_Get_QNAME, Get.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.alex.org/", name = "passwordCheckResponse")
+    public JAXBElement<PasswordCheckResponse> createPasswordCheckResponse(PasswordCheckResponse value) {
+        return new JAXBElement<PasswordCheckResponse>(_PasswordCheckResponse_QNAME, PasswordCheckResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetAll }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link TokenCheck }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.alex.org/", name = "getAll")
-    public JAXBElement<GetAll> createGetAll(GetAll value) {
-        return new JAXBElement<GetAll>(_GetAll_QNAME, GetAll.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.alex.org/", name = "tokenCheck")
+    public JAXBElement<TokenCheck> createTokenCheck(TokenCheck value) {
+        return new JAXBElement<TokenCheck>(_TokenCheck_QNAME, TokenCheck.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetAllResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link TokenCheckResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.alex.org/", name = "getAllResponse")
-    public JAXBElement<GetAllResponse> createGetAllResponse(GetAllResponse value) {
-        return new JAXBElement<GetAllResponse>(_GetAllResponse_QNAME, GetAllResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.alex.org/", name = "getResponse")
-    public JAXBElement<GetResponse> createGetResponse(GetResponse value) {
-        return new JAXBElement<GetResponse>(_GetResponse_QNAME, GetResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Merge }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.alex.org/", name = "merge")
-    public JAXBElement<Merge> createMerge(Merge value) {
-        return new JAXBElement<Merge>(_Merge_QNAME, Merge.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link MergeResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.alex.org/", name = "mergeResponse")
-    public JAXBElement<MergeResponse> createMergeResponse(MergeResponse value) {
-        return new JAXBElement<MergeResponse>(_MergeResponse_QNAME, MergeResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.alex.org/", name = "tokenCheckResponse")
+    public JAXBElement<TokenCheckResponse> createTokenCheckResponse(TokenCheckResponse value) {
+        return new JAXBElement<TokenCheckResponse>(_TokenCheckResponse_QNAME, TokenCheckResponse.class, null, value);
     }
 
 }

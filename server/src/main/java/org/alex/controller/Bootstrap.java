@@ -1,7 +1,10 @@
 
 package org.alex.controller;
 
-import org.alex.api.service.*;
+import org.alex.api.service.IAccessControlService;
+import org.alex.api.service.IAssignmentService;
+import org.alex.api.service.IProjectService;
+import org.alex.api.service.ITaskService;
 import org.alex.command.AbstractCommand;
 import org.alex.command.HelpCommand;
 import org.alex.command.LogoutCommand;
@@ -22,36 +25,23 @@ import org.alex.endpoint.*;
 import org.alex.entity.Assignee;
 import org.alex.entity.Domain;
 import org.alex.entity.Session;
-import org.alex.repository.ProjectRepository;
 import org.alex.service.*;
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.hibernate.cfg.Configuration;
 
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.io.IOException;
-import java.io.Reader;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-@Named
-@RequestScoped
+@ApplicationScoped
 public class Bootstrap {
 
-    private final String USER = "postgres";
-    private final String PASS = "qwerty";
-    private final String ADDR = "jdbc:postgresql://localhost:5432/postgres";
     private Connection connection;
 
     private final static Class[] COMMANDS = {AssigneeAssignProject.class, AssigneeCreateCommand.class, AssigneeDeleteCommand.class, AssigneeGetListCommand.class,
@@ -59,42 +49,42 @@ public class Bootstrap {
             ProjectCreateCommand.class, ProjectGetListCommand.class, ProjectGetWorkersCommand.class, TaskCreateCommand.class, TaskDeleteCommand.class,
             TaskGetListCommand.class, TaskGetWorkersCommand.class, TaskViewCommand.class, HelpCommand.class, LogoutCommand.class, QuitCommand.class};
 
-    /*Hibernate config start */
-    Configuration cfg = new Configuration()
-            .setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect")
-            .setProperty("hibernate.connection.datasource", "jdbc:postgresql://localhost:5432/postgres")
-            .setProperty("hibernate.order_updates", "true")
-            .setProperty("hibernate.connection.username", "postgres")
-            .setProperty("hibernate.connection.password", "qwerty")
-            .setProperty("hibernate.show_sql", "true")
-            .setProperty("hibernate.hbm2ddl.auto", "update");
 
-//    SessionFactory sessions = cfg.buildSessionFactory();
+    @Inject
+    private ITaskService taskService;
 
-    /*  -= End of Hibernate config =-  */
+    @Inject
+    private IProjectService projectService;
 
-    private ITaskService taskService = new TaskService();
-    private IProjectService projectService = new ProjectService();
-    private final IAssigneeService assigneeService = new AssigneeService();
-    private final IAssignmentService assignmentService = new AssignmentService();
+    @Inject
+    private AuthorizationService authorizationService;
+
+    @Inject
+    private AssigneeService assigneeService;
+
+    @Inject
+    private IAssignmentService assignmentService;
+
+    @Inject
+    private IAccessControlService accessControlService;
+
+    @Inject
+    private HibernateLoader hibernateLoader;
+
     private final EndpointTask endpointTask = new EndpointTask(this);
     private final EndpointProject endpointProject = new EndpointProject(this);
     private final EndpointAssignee endpointAssignee = new EndpointAssignee(this);
     private final EndpointAssignment endpointAssignment = new EndpointAssignment(this);
     private final EndpointAuthorization endpointAuthorization = new EndpointAuthorization(this);
-    private final IAccessControlService accessControlService = new SecurityService(this);
-    private final AuthorizationService authorizationService = new AuthorizationService(this);
+
     private final Scanner scanner = new Scanner(System.in);
     private final Domain domain = new Domain();
     private final int MAX_AUTH_TRIES = 3;
     private final Map<String, AbstractCommand> commandMap = new HashMap<>();
 
-    final Reader reader = Resources.getResourceAsReader("SqlMapConfig.xml");
-    final SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
-    final SqlSession session = sqlSessionFactory.openSession();
-
     private String loggedAssigneeId;
     private SecretKey masterSecretKey = null;
+
 
     public Bootstrap() throws NoSuchAlgorithmException, NoSuchPaddingException, InstantiationException, IllegalAccessException, IOException {
     }
@@ -105,16 +95,9 @@ public class Bootstrap {
             claz = (AbstractCommand) c.newInstance();
             commandMap.put(claz.getCommand(), claz);
         }
-        try {
-            connection = DriverManager.getConnection(ADDR, USER, PASS);
-        } catch (SQLException e) {
-            System.out.println("Не могу подключиться к БД: " + ADDR);
-        }
-        session.getConfiguration().addMapper(ProjectRepository.class);
-        taskService.setConnection(connection);
-        assigneeService.setConnection(connection);
-        assignmentService.setConnection(connection);
-        projectService.setSessionFactory(sqlSessionFactory );
+//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("tm2");
+
+
     }
 
     public void init() throws Exception {
@@ -134,6 +117,7 @@ public class Bootstrap {
                 if (authorizationService.passwordCheck(loginConsole, passwordConsole.hashCode())) {
                     Session session = new Session();
                     session.setUserId(ass.getUid());
+                    String token = authorizationService.createToken(loginConsole);
                     System.out.println("Здравствуйте, " + ass.getName() + "\n");
                     launch(session);
                     return;

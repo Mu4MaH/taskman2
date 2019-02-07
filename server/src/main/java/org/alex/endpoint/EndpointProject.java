@@ -2,10 +2,9 @@ package org.alex.endpoint;
 
 import org.alex.controller.Bootstrap;
 import org.alex.entity.Project;
-import org.alex.exception.IllegalArgumentException;
-import org.alex.exception.IllegalStringException;
 import org.alex.service.ProjectService;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -28,32 +27,30 @@ public class EndpointProject{
 
     @WebMethod
     public void createProject(@NotNull Project project) {
-        if (project == null) return;
         projectService.createProject(project);
     }
 
     @WebMethod
-    public Project getProject(@NotNull String uid) throws IllegalArgumentException, IllegalStringException {
-        if (uid.isEmpty() || uid.equals(null)) {
-            throw new IllegalArgumentException();
+    @Nullable public Project getProject(@NotNull String uid){
+        if (uid.isEmpty()) {
+            return null;
         } else {
             return (Project) projectService.getProject(uid);
         }
     }
 
     @WebMethod
-    public void deleteProject(@NotNull String uid) throws IllegalArgumentException {
+    public void deleteProject(@NotNull String uid) {
         //ничего не делает, удаление проектов не разрешено вообще.
     }
 
     @WebMethod
-    public List<Project> getAllProject() {
+    @Nullable public List<Project> getAllProject() {
         return projectService.getAllProject();
     }
 
     @WebMethod
     public void mergeProject(@NotNull List<Project> list) {
-        if (list.equals(null)) return;
         projectService.mergeProject(list);
     }
 

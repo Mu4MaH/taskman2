@@ -3,7 +3,6 @@ package org.alex.api.service;
 import org.alex.entity.Assignee;
 import org.alex.exception.IllegalStringException;
 
-import java.sql.Connection;
 import java.util.List;
 
 public interface IAssigneeService {
@@ -12,7 +11,7 @@ public interface IAssigneeService {
 
     void deleteAssignee(String uid) throws IllegalStringException;
 
-    void createAssignee(Assignee assignee);
+    Assignee createAssignee(Assignee assignee);
 
     List<Assignee> getAllAssignee();
 
@@ -22,5 +21,4 @@ public interface IAssigneeService {
 
     Assignee getAssigneeByLogin(String login);
 
-    void setConnection (Connection connection);
 }

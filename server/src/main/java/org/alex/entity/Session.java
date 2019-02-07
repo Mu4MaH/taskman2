@@ -16,15 +16,15 @@ public class Session {
     }
 
     @Override
-    public String toString() {
+    @NotNull public String toString() {
         return sessionId + ":" + userId + ":" + timestamp;
     }
 
-    public String getSessionId() {
+    @NotNull public String getSessionId() {
         return sessionId;
     }
 
-    public String getUserId() {
+    @NotNull public String getUserId() {
         return userId;
     }
 
@@ -32,7 +32,7 @@ public class Session {
         this.userId = userId;
     }
 
-    public long getTimestamp() {
+    @NotNull public Long getTimestamp() {
         return timestamp;
     }
 

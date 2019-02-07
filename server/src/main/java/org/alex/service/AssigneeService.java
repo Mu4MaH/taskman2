@@ -3,72 +3,77 @@ package org.alex.service;
 import org.alex.api.service.IAssigneeService;
 import org.alex.entity.Assignee;
 import org.alex.repository.AssigneeRepository;
+import org.apache.deltaspike.jpa.api.transaction.Transactional;
 import org.jetbrains.annotations.NotNull;
 
-import java.sql.Connection;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
+@ApplicationScoped
+@Transactional
 public class AssigneeService implements IAssigneeService {
 
     public AssigneeService() {
-
     }
 
-    private final AssigneeRepository repository = new AssigneeRepository();
+    @Inject
+    AssigneeRepository repository;
 
-    public void createAssignee(@NotNull final Assignee assignee) {
-        if (assignee == null) {
-            return;
-        } else {
-            this.repository.add(assignee);
+    public Assignee createAssignee(@NotNull final Assignee assignee) {
+        final List<Assignee> assignees = repository.findAll();
+        for (int i = 0; i < repository.findAll().size(); i++) {
+            if (assignee.getLogin().equals(assignees.get(i).getLogin())) {
+                System.out.println("DEBUG ass.add: ЕСТЬ ТАКАЯ БУКВА!!!");
+                return null;
+            }
         }
+        this.repository.save(assignee);
+        return assignee;
     }
+
 
     @Override
-    public Assignee getAssignee(@NotNull final String uid) throws IllegalArgumentException {
-        if (uid.isEmpty() || uid == null) {
-            throw new IllegalArgumentException();
-        } else {
-            return this.repository.getAssigneeByUid(uid);
-        }
-    }
-
-    public void setConnection(@NotNull final Connection connection) {
-        repository.setConnection(connection);
+    public Assignee getAssignee(@NotNull final String uid) {
+        return this.repository.findBy(uid);
     }
 
     @Override
     public Assignee getAssigneeByLogin(@NotNull final String login) {
-        for (Assignee a : repository.getAll()) {
+        for (Assignee a : repository.findAll()) {
             if (login.equals(a.getLogin())) return a;
-        } return null;
+        }
+        return null;
     }
 
     @Override
     public List<Assignee> getAllAssignee() {
-        return repository.getAll();
+        return repository.findAll();
     }
 
     @Override
     public void mergeAssignee(@NotNull final List<Assignee> assignees) {
-        if (assignees == null) return;
-        repository.merge(assignees);
-    }
-
-    @Override
-    public void deleteAssignee(@NotNull final String uid) throws IllegalArgumentException {
-        if (uid.isEmpty() || uid == null) {
-            throw new IllegalArgumentException();
-        } else {
-            this.repository.delete(uid);
+        final List<Assignee> helperList = repository.findAll();
+        for (Assignee a: helperList) {
+            repository.remove(a);
+        }
+        for (Assignee a: assignees) {
+            repository.save(a);
         }
     }
 
     @Override
+    public void deleteAssignee(@NotNull final String uid) {
+        final Assignee a = repository.findBy(uid);
+        repository.remove(a);
+    }
+
+    @Override
+    @NotNull
     public String getAssigneeAdminGroup() {
         String output = "";
-        final List<Assignee> helperList = new ArrayList<>(repository.getAll());
+        @NotNull final List<Assignee> helperList = new ArrayList<>(repository.findAll());
         for (Assignee ass : helperList) {
             if ("administrators".equals(ass.getGroup().toLowerCase())) {
                 output = output.concat(ass.getUid() + ";");

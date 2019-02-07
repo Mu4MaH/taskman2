@@ -3,10 +3,13 @@ package org.alex.repository;
 import org.alex.entity.Assignment;
 import org.jetbrains.annotations.NotNull;
 
+import javax.enterprise.context.ApplicationScoped;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@ApplicationScoped
 public class ProjectAssigneeAssgnmt implements org.alex.api.service.IAssignment {
 
     private Connection connection;

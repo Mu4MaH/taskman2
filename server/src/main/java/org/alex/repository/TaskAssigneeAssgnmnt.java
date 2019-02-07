@@ -5,10 +5,12 @@ import org.alex.entity.Assignment;
 import org.alex.entity.Task;
 import org.jetbrains.annotations.NotNull;
 
+import javax.enterprise.context.ApplicationScoped;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@ApplicationScoped
 public class TaskAssigneeAssgnmnt implements IAssignment {
 
     private Connection connection;

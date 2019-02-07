@@ -1,32 +1,56 @@
 package org.alex.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.alex.api.entity.AbstractEntity;
 import org.alex.enumerated.Priority;
 import org.alex.enumerated.State;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.UUID;
 
+@Entity
+@Table(name="app_task")
 public class Task extends AbstractEntity implements Serializable {
 
+    @Id
+    @Column
+    @Getter
+    @Setter
     private String uid = String.valueOf(UUID.randomUUID());
+
+    @Column
+    @Getter
+    @Setter
     private String name = "New_task";
+
+    @Column
+    @Getter
+    @Setter
     private Integer hours = 0; //TODO: время в часах, при выдаче инфы пользователю пересчёт в рабочие дни /8 + остаток в часах
+
+    @Column
+    @Getter
+    @Enumerated(EnumType.STRING)
     private State state = State.OPEN;
+
+    @Column
+    @Getter
+    @Enumerated(EnumType.STRING)
     private Priority priority = Priority.IDLE;
+
+    @Column
+    @Getter
+    @Setter
     private String ownerId;
 
     public Task() {
     }
 
-    public String getOwnerId() {
-        return ownerId;
-    }
 
-    public void setOwnerId(@NotNull String ownerId) {
-        this.ownerId = ownerId;
-    }
 
     public Task(@NotNull String name) {
         this.name = name;
@@ -42,38 +66,11 @@ public class Task extends AbstractEntity implements Serializable {
     }
     /*      ***     */
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(@NotNull String name) {
-        this.name = name;
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(@NotNull String uid) {
-        this.uid = uid;
-    }
-
-    public int getHours() {
-        return hours;
-    }
-
-    public void setHours(@NotNull int hours) {
-        this.hours = hours;
-    }
-
-    public State getState() {
-        return state;
-    }
 
     public void setState(@NotNull String state) {
+        this.state = State.OPEN;
         switch (state.toLowerCase()) {
             case "open":
-                this.state = State.OPEN;
                 break;
             case "set":
                 this.state = State.SET;
@@ -83,19 +80,14 @@ public class Task extends AbstractEntity implements Serializable {
                 break;
             case "finished":
                 this.state = State.FINISHED;
-
+                break;
         }
-
-    }
-
-    public Priority getPriority() {
-        return priority;
     }
 
     public void setPriority(@NotNull String priority) {
+        this.priority = Priority.IDLE;
         switch (priority.toLowerCase()) {
             case "idle":
-                this.priority = Priority.IDLE;
                 break;
             case "normal":
                 this.priority = Priority.NORMAL;
@@ -121,7 +113,7 @@ public class Task extends AbstractEntity implements Serializable {
     }
 
 
-    public boolean equals(@NotNull Task task) {
+    public Boolean equals(@Nullable Task task) {
         if (task == null) return false;
         return this.name.equals(task.getName());
     }

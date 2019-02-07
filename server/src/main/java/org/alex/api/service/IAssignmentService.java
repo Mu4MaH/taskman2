@@ -1,7 +1,6 @@
 package org.alex.api.service;
 
 import org.alex.entity.Assignment;
-import org.alex.exception.IllegalStringException;
 import org.alex.repository.ProjectAssigneeAssgnmt;
 import org.alex.repository.ProjectTaskAssgnmnt;
 import org.alex.repository.TaskAssigneeAssgnmnt;
@@ -39,5 +38,9 @@ public interface IAssignmentService {
 
     void mergeProjectTasksAssgnmnt (ProjectTaskAssgnmnt assignment, List<Assignment> assignments) throws SQLException;
 
-    void delAssignment(IAssignment silo, Assignment assignment) throws IllegalStringException, SQLException;
+    void delProjectAssigneesAssgnmnt(Assignment assignment) throws SQLException;
+
+    void delTaskAssigneesAssgnmnt(Assignment assignment) throws SQLException;
+
+    void delProjectTasksAssgnmnt(Assignment assignment) throws SQLException;
 }

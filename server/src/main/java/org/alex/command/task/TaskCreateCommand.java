@@ -17,7 +17,7 @@ public class TaskCreateCommand extends AbstractCommand {
     public void execute(Bootstrap bootstrap) {
         System.out.print("Введите название задачи: ");
         final Task helperTask = new Task(bootstrap.getNextLine());
-        final String uid = helperTask.getUid();
+//        final String uid = helperTask.getUid();
         String owner = bootstrap.getLoggedAssigneeId();
         helperTask.setOwnerId(owner);
         System.out.print("Хотите ввести все поля? y(д) - да/энтер - нет");

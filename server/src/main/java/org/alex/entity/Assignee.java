@@ -1,77 +1,54 @@
 package org.alex.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.alex.api.entity.AbstractEntity;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.UUID;
+
+@Entity
+@Table(name = "assignee")
 
 public class Assignee extends AbstractEntity implements Serializable {
 
 
+    @Id
+    @Column
+    @Getter
+    @Setter
     private String uid = String.valueOf(UUID.randomUUID());
 
+    @Column
+    @Getter
+    @Setter
     private String name = "Unnamed_assignee";
 
+    @Column
+    @Getter
+    @Setter
     private String login;
 
-    private int password;
+    @Column(name = "pass")
+    @Getter
+    @Setter
+    private Integer password;
 
+    @Column(name = "grp")
+    @Getter
+    @Setter
     private String group;
 
+    @Column(name = "isadmin")
     private boolean isAdmin = false;
 
     public Assignee() {
     }
 
-    public Assignee(@NotNull String name) {
-        this.name = name;
-    }
-
-    public String getGroup() {
-        return group;
-    }
-
-    public void setGroup(@NotNull String group) {
-        this.group = group;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(@NotNull String login) {
-        this.login = login;
-    }
-
-    public int getPassword() {
-        return this.password;
-    }
-
-    public void setPassword(@NotNull int password) {
-        this.password = password;
-    }
-
     public boolean getAdmin() {
         return this.isAdmin;
-    }
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(@NotNull String name) {
-        this.name = name;
-    }
-
-    @NotNull public String getUid() {
-        return uid;
-    }
-
-    public void setUid(@NotNull String uid) {
-        this.uid = uid;
     }
 
     public void setAdmin() {
@@ -98,6 +75,5 @@ public class Assignee extends AbstractEntity implements Serializable {
 
     public boolean equals(Assignee assignee) {
         if (this.getLogin().equals(assignee.getLogin())); return true;
-        //else return false;
     }
 }

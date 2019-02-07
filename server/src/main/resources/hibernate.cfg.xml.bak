@@ -12,6 +12,7 @@
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">qwerty</property>
 
+
         <!-- SQL dialect -->
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL95Dialect</property>
 
@@ -21,8 +22,6 @@
         <!-- Update database on startup -->
         <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <!-- Annotated entity classes -->
-        <mapping class="com."/>
-
+<mapping class="org.alex.entity.Task"/  >
     </session-factory>
 </hibernate-configuration>

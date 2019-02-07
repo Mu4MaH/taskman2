@@ -2,6 +2,7 @@ package org.alex.repository;
 
 import org.jetbrains.annotations.NotNull;
 
+import javax.enterprise.context.ApplicationScoped;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +13,10 @@ import java.util.Map;
 /* Работа с правами доступа ведётся через метожды работы со строками
 /*************************************/
 
+@ApplicationScoped
 public class AccessControlList {
+
+    public  AccessControlList() {}
 
     private final Map<String, String> acl = new HashMap<>();
 

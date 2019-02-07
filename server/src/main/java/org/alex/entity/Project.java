@@ -1,24 +1,33 @@
 package org.alex.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.alex.api.entity.AbstractEntity;
 import org.jetbrains.annotations.NotNull;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.UUID;
 
+@Entity
+@Table(name = "project")
 public class Project extends AbstractEntity implements Serializable {
 
+    @Id
+    @Column
+    @Getter
+    @Setter
     private String uid = String.valueOf(UUID.randomUUID());
+
+    @Column
+    @Getter
+    @Setter
     private String name;
+
+    @Column
+    @Getter
+    @Setter
     private String ownerId;
-
-    public String getOwnerId() {
-        return ownerId;
-    }
-
-    public void setOwnerId(@NotNull String ownerId) {
-        this.ownerId = ownerId;
-    }
 
     public Project() {
         this.name = "default";
@@ -26,22 +35,6 @@ public class Project extends AbstractEntity implements Serializable {
 
     public Project(@NotNull String name) {
         this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(@NotNull String name) {
-        this.name = name;
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(@NotNull String uid) {
-        this.uid = uid;
     }
 
     @Override

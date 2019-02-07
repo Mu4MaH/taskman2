@@ -6,50 +6,54 @@ import org.alex.exception.IdAlreadyInListException;
 import org.alex.exception.IdNotFoundException;
 import org.alex.exception.IllegalStringException;
 import org.alex.repository.AccessControlList;
+import org.apache.deltaspike.jpa.api.transaction.Transactional;
 import org.jetbrains.annotations.NotNull;
 
-import javax.crypto.*;
+import javax.crypto.Cipher;
+import javax.crypto.CipherOutputStream;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.io.ByteArrayOutputStream;
 import java.security.NoSuchAlgorithmException;
 
-public class SecurityService implements IAccessControlService {
+@ApplicationScoped
+@Transactional
+public class AccessControlService implements IAccessControlService {
 
-    private final AccessControlList acl = new AccessControlList();
-    private final Bootstrap bootstrap;
+    @Inject
+    private AccessControlList acl;
+
+    @Inject
+    Bootstrap bootstrap;
+
     private final ByteArrayOutputStream bos = new ByteArrayOutputStream();
     private final Cipher encryptCipher = Cipher.getInstance("AES");
     private final CipherOutputStream cos = new CipherOutputStream(bos, encryptCipher);
 
     private SecretKey secretKey;
 
-    public SecurityService(@NotNull final Bootstrap bootstrap) throws NoSuchPaddingException, NoSuchAlgorithmException {
-        this.bootstrap = bootstrap;
-    }
+    public AccessControlService() throws NoSuchPaddingException, NoSuchAlgorithmException {}
 
-    public boolean hasAccess(@NotNull final String uidWhere, @NotNull final String uidWho) throws IllegalStringException {
-        if (uidWhere == null || uidWho == null) {
-            throw new IllegalStringException();
-        } else {
+    public boolean hasAccess(@NotNull final String uidWhere, @NotNull final String uidWho) {
             final String accessList = acl.getObjectACL(uidWhere);
             return accessList.contains(uidWho);
-        }
+
 
     }
 
     public void addToACL(@NotNull final String uidWhere, @NotNull final String uidWho) throws IdAlreadyInListException, IllegalStringException {
-        if (uidWhere == null || uidWho == null) {
-            throw new IllegalStringException();
-        } else {
             final String accessList = acl.getObjectACL(uidWhere);
             if (!accessList.contains(uidWho)) {
                 acl.setObjectACL(uidWhere, accessList + ";" + uidWho);
             } else throw new IdAlreadyInListException();
-        }
+
     }
 
     public void removeFromACL(@NotNull final String uidWhere, @NotNull final String uidWho) throws IllegalStringException, IdNotFoundException {
         final StringBuffer accessList = new StringBuffer(acl.getObjectACL(uidWhere)); //SB т.к. требуется безгеморройное удаление из середины строки
-        if (uidWhere.isEmpty() || uidWho.isEmpty() || uidWhere == null || uidWho == null) {
+        if (uidWhere.isEmpty() || uidWho.isEmpty()) {
             throw new IllegalStringException();
         } else {
             final int i = accessList.indexOf(uidWho);
@@ -62,11 +66,9 @@ public class SecurityService implements IAccessControlService {
     }
 
     public void mergeACL(@NotNull final String uidWhere, @NotNull final String uidWho) throws IllegalStringException {
-        if (uidWhere == null || uidWho == null) {
             final String accessList = acl.getObjectACL(uidWhere);
             acl.setObjectACL(uidWhere, accessList + ";" + uidWho);
             vacuumACL(uidWhere);
-        } else throw new IllegalStringException();
     }
 
     private void vacuumACL(@NotNull final String uidWhere) {

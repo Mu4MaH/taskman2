@@ -1,8 +1,8 @@
 package org.alex.exception;
 
-public class IllegalArgumentException extends Exception {
+public class WrongArgumentTypeException extends Exception {
 
-    public IllegalArgumentException() {
+    public WrongArgumentTypeException() {
         super("Невалидные параметры вызова метода");
     }
 

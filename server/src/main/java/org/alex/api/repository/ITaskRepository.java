@@ -10,12 +10,9 @@ public interface ITaskRepository {
 
     Task get(String uid);
 
-    void updateTask(String uid, Task task);
+    void updateTask(Task task);
 
     void delete(String uid);
 
     List<Task> getAll();
-
-    void merge(List<Task> tasks);
-
 }

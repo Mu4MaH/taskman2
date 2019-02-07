@@ -2,7 +2,6 @@ package org.alex.endpoint;
 
 import org.alex.controller.Bootstrap;
 import org.alex.entity.Assignee;
-import org.alex.exception.IllegalStringException;
 import org.jetbrains.annotations.NotNull;
 
 import javax.jws.WebMethod;
@@ -26,12 +25,8 @@ public class EndpointAssignee{
     }
 
     @WebMethod
-    public void createAssignee(@NotNull Assignee assignee) {
-        if (assignee == null) {
-            return;
-        } else {
-            bootstrap.getAssigneeService().createAssignee(assignee);
-        }
+    public Assignee createAssignee(@NotNull Assignee assignee) {
+            return bootstrap.getAssigneeService().createAssignee(assignee);
     }
 
     @WebMethod
@@ -42,38 +37,30 @@ public class EndpointAssignee{
     }
 
     @WebMethod
-    public Assignee getAssignee(@NotNull String uid) throws IllegalArgumentException, IllegalStringException {
-        if (uid.isEmpty() || uid == null) {
-            throw new IllegalArgumentException();
-        } else {
+    @NotNull public Assignee getAssignee(@NotNull String uid){
             return bootstrap.getAssigneeService().getAssignee(uid);
         }
-    }
+
 
     @WebMethod
-    public List<Assignee> getAllAssignee() {
+    @NotNull public List<Assignee> getAllAssignee() {
         return bootstrap.getAssigneeService().getAllAssignee();
     }
 
     @WebMethod
     public void mergeAssignee(@NotNull List<Assignee> assignees) {
-        if (assignees == null) return;
         bootstrap.getAssigneeService().mergeAssignee(assignees);
     }
 
     @WebMethod
-    public void deleteAssignee(@NotNull String uid) throws IllegalArgumentException, IllegalStringException {
-        if (uid.isEmpty() || uid == null) {
-            throw new IllegalArgumentException();
-        } else {
+    public void deleteAssignee(@NotNull String uid){
             bootstrap.getAssigneeService().deleteAssignee(uid);
-        }
     }
 
     @WebMethod
-    public String getAdminGroup() {
+    @NotNull public String getAdminGroup() {
         String output = "";
-        List<Assignee> helperList = new ArrayList<>(bootstrap.getAssigneeService().getAllAssignee());
+        final List<Assignee> helperList = new ArrayList<>(bootstrap.getAssigneeService().getAllAssignee());
         for (Assignee ass : helperList) {
             if ("administrators".equals(ass.getGroup().toLowerCase())) {
                 output = output.concat(ass.getUid() + ";");

@@ -28,11 +28,6 @@ public class EndpointAssignment{
         assignmentService =  bootstrap.getAssignmentService();
     }
 
-//    @WebMethod
-//    public void setConnection(@NotNull Connection connection) {
-//        assignmentService.setConnection(connection);
-//    }
-
     @WebMethod
     public void assigneeToProject(@NotNull Assignment assignment) throws SQLException {
         assignmentService.assigneeToProject(assignment);
@@ -49,37 +44,37 @@ public class EndpointAssignment{
     }
 
     @WebMethod
-    public List<String> getAssigneeTasks(@NotNull String assigneegId) {
+    @NotNull public List<String> getAssigneeTasks(@NotNull String assigneegId) {
         return assignmentService.getAssigneeTasks(assigneegId);
     }
 
     @WebMethod
-    public List<String> getProjectFromTask(@NotNull String taskId) throws SQLException {
+    @NotNull public List<String> getProjectFromTask(@NotNull String taskId) throws SQLException {
         return assignmentService.getProjectFromTask(taskId);
     }
 
     @WebMethod
-    public List<String> getTasksFromProject(@NotNull String projectId) {
+    @NotNull public List<String> getTasksFromProject(@NotNull String projectId) {
         return assignmentService.getTasksFromProject(projectId);
     }
 
     @WebMethod
-    public List<String> getAssigneesFromTask(@NotNull String taskId) {
+    @NotNull public List<String> getAssigneesFromTask(@NotNull String taskId) {
         return assignmentService.getAssigneesFromTask(taskId);
     }
 
     @WebMethod
-    public List<String> getTasksFromAssignee(@NotNull String assigneeId) {
+    @NotNull public List<String> getTasksFromAssignee(@NotNull String assigneeId) {
         return assignmentService.getTasksFromAssignee(assigneeId);
     }
 
     @WebMethod
-    public List<String> getProjectFromAssignee(@NotNull String assigneeId) throws SQLException {
+    @NotNull public List<String> getProjectFromAssignee(@NotNull String assigneeId) throws SQLException {
         return assignmentService.getProjectFromAssignee(assigneeId);
     }
 
     @WebMethod
-    public List<String> getAssigneesFromProject(@NotNull String projectId) {
+    @NotNull public List<String> getAssigneesFromProject(@NotNull String projectId) {
         return assignmentService.getAssigneesFromProject(projectId);
     }
 

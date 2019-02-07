@@ -16,10 +16,10 @@ public class Domain implements Serializable {
     private List<Assignment> assignments;
 
     public Domain createDomain(Bootstrap bootstrap) {
-        final List<Project> projects = bootstrap.getProjectService().getEndpointProjectPort().getAllProject();
-        final List<Task> tasks = bootstrap.getTaskService().getEndpointTaskPort().getAllTask();
-        final List<Assignee> assignees = bootstrap.getAssigneeService().getEndpointAssigneePort().getAllAssignee();
-        final List<Assignment> assignments = bootstrap.getAssignmentService().getEndpointAssignmentPort().getAllAssignment();
+        final List<Project> projects = bootstrap.getEndpointProjectService().getEndpointProjectPort().getAllProject();
+        final List<Task> tasks = bootstrap.getEndpointTaskService().getEndpointTaskPort().getAllTask();
+        final List<Assignee> assignees = bootstrap.getEndpointAssigneeService().getEndpointAssigneePort().getAllAssignee();
+        //final List<Assignment> assignments = bootstrap.getEndpointAssignmentService().getEndpointAssignmentPort().get .getAllAssignment();
         Domain domain = new Domain();
         if (domain.setProjects(projects))
             if (domain.setTasks(tasks))
@@ -33,10 +33,10 @@ public class Domain implements Serializable {
         final List<Task> tasks = domain.getTasks();
         final List<Assignee> assignees = domain.getAssignees();
         final List<Assignment> assignments = domain.getAssignments();
-        bootstrap.getProjectService().getEndpointProjectPort().mergeProject(projects);
-        bootstrap.getTaskService().getEndpointTaskPort().mergeTask(tasks);
-        bootstrap.getAssigneeService().getEndpointAssigneePort().mergeAssignee(assignees);
-        bootstrap.getAssignmentService().getEndpointAssignmentPort().mergeAssignment(assignments);
+        bootstrap.getEndpointProjectService().getEndpointProjectPort().mergeProject(projects);
+        bootstrap.getEndpointTaskService().getEndpointTaskPort().mergeTask(tasks);
+        bootstrap.getEndpointAssigneeService().getEndpointAssigneePort().mergeAssignee(assignees);
+//        bootstrap.getEndpointAssignmentService().getEndpointAssignmentPort().memergeAssignment(assignments);
 
     }
 

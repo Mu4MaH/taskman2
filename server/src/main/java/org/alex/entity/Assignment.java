@@ -2,6 +2,7 @@ package org.alex.entity;
 
 import org.jetbrains.annotations.NotNull;
 
+
 public class Assignment {
 
     private String assignmentId;
@@ -15,7 +16,7 @@ public class Assignment {
         this.assigningId = assigningId;
     }
 
-    public String getAssignmentId() {
+    @NotNull public String getAssignmentId() {
         return assignmentId;
     }
 
@@ -23,7 +24,7 @@ public class Assignment {
         this.assignmentId = assignmentId;
     }
 
-    public String getAssigningId() {
+    @NotNull public String getAssigningId() {
         return assigningId;
     }
 

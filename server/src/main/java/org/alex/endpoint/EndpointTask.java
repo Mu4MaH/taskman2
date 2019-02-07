@@ -2,9 +2,9 @@ package org.alex.endpoint;
 
 import org.alex.controller.Bootstrap;
 import org.alex.entity.Task;
-import org.alex.exception.IllegalArgumentException;
 import org.alex.service.TaskService;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -26,17 +26,14 @@ public class EndpointTask {
 
     @WebMethod
     public void createTask(@NotNull Task task) {
-        if (task == null) {
-            return;
-        } else {
             taskService.createTask(task);
-        }
     }
 
     @WebMethod
-    public Task getTask(@NotNull String uid) throws IllegalArgumentException {
-        if (uid.isEmpty() || uid.equals(null)) {
-            throw new IllegalArgumentException();
+    @Nullable
+    public Task getTask(@NotNull String uid){
+        if (uid.isEmpty()) {
+            return null;
         } else {
             return taskService.getTask(uid);
         }
@@ -48,24 +45,19 @@ public class EndpointTask {
     }
 
     @WebMethod
-    public void updateTask(@NotNull String uid, @NotNull Task task) throws IllegalArgumentException {
-        if (uid.isEmpty() || uid.equals(null) || task.equals(null)) {
-            throw new IllegalArgumentException();
-        } else {
-            taskService.updateTask(uid, task);
-        }
+    public void updateTask(@NotNull Task task){
+            taskService.updateTask(task);
     }
 
     @WebMethod
     public void mergeTask(@NotNull List<Task> tasks) {
-        if (tasks == null) return;
-        taskService.mergeTask(tasks);
+        taskService.mergeTasks(tasks);
     }
 
     @WebMethod
-    public void deleteTask(@NotNull String uid) throws IllegalArgumentException {
-        if (uid.isEmpty() && uid.equals(null)) {
-            throw new IllegalArgumentException();
+    public void deleteTask(@NotNull String uid){
+        if (uid.isEmpty()) {
+            return;
         } else {
             taskService.deleteTask(uid);
         }

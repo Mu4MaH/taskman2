@@ -3,7 +3,7 @@ package org.alex.command.task;
 import org.alex.command.AbstractCommand;
 import org.alex.controller.Bootstrap;
 import org.alex.entity.Task;
-import org.alex.exception.IllegalArgumentException;
+import org.alex.exception.WrongArgumentTypeException;
 import org.alex.exception.IllegalStringException;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class TaskDeleteCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute(Bootstrap bootstrap) throws IllegalArgumentException, IllegalStringException {
+    public void execute(Bootstrap bootstrap) throws WrongArgumentTypeException, IllegalStringException {
         int n = 1;
         final List<Task> helperList = new ArrayList<>(bootstrap.getTaskService().getAllTask());
         final String adminGroup = bootstrap.getAssigneeService().getAssigneeAdminGroup();

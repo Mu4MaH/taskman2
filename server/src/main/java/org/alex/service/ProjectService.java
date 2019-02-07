@@ -2,52 +2,37 @@ package org.alex.service;
 
 import org.alex.api.service.IProjectService;
 import org.alex.entity.Project;
-import org.alex.exception.IllegalArgumentException;
 import org.alex.repository.ProjectRepository;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.deltaspike.jpa.api.transaction.Transactional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.util.List;
 
+@ApplicationScoped
+@Transactional
 public class ProjectService implements IProjectService {
 
-    SqlSessionFactory sqlSessionFactory;
+    @Inject
     private ProjectRepository repo;
 
-    public ProjectService() throws IOException {
+    public ProjectService() {
     }
 
     @Override
     public void createProject(@NotNull final Project project) {
-        SqlSession session = sqlSessionFactory.openSession();
-        repo = session.getMapper(ProjectRepository.class);
-        if (project == null) return;
-        repo.add(project);
-        session.commit();
-        session.close();
+        repo.save(project);
     }
 
     @Override
-    public void setSessionFactory(SqlSessionFactory sqlSessionFactory) {
-        this.sqlSessionFactory = sqlSessionFactory;
-
-    }
-
-    @Override
-    @NotNull
-    public Project getProject(@NotNull final String uid) throws IllegalArgumentException {
-        if (uid.isEmpty() || uid.equals(null)) {
-            throw new IllegalArgumentException();
+    @Nullable
+    public Project getProject(@NotNull final String uid) {
+        if (uid.isEmpty()) {
+            return null;
         } else {
-            SqlSession session = sqlSessionFactory.openSession();
-            repo = session.getMapper(ProjectRepository.class);
-            final Project output = repo.get(uid);
-            session.commit();
-            session.close();
-            return output;
+            return repo.findBy(uid);
         }
     }
 
@@ -59,22 +44,20 @@ public class ProjectService implements IProjectService {
     @Override
     @Nullable
     public List<Project> getAllProject() {
-        SqlSession session = sqlSessionFactory.openSession();
-        repo = session.getMapper(ProjectRepository.class);
-        final List<Project> output = repo.getAll();
-        session.commit();
-        session.close();
-        return output;
+        return repo.findAll();
     }
 
     @Override
     public void mergeProject(@Nullable final List<Project> list) {
-        if (list.equals(null)) return;
-        repo.wipe();
-        for (Project project : list) {
-            repo.add(project);
+        if (list == null) return;
+        for (Project p : repo.findAll()) {
+            repo.removeAndFlush(p);
+        }
+        for (Project p : list) {
+            repo.save(p);
         }
     }
 }
+
 
 

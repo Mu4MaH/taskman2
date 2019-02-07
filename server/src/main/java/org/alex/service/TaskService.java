@@ -2,67 +2,60 @@ package org.alex.service;
 
 import org.alex.api.service.ITaskService;
 import org.alex.entity.Task;
-import org.alex.exception.IllegalArgumentException;
 import org.alex.repository.TaskRepository;
+import org.apache.deltaspike.jpa.api.transaction.Transactional;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.jws.WebService;
-import java.sql.Connection;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.util.List;
 
+@ApplicationScoped
+@Transactional
 public class TaskService implements ITaskService {
 
-    private final TaskRepository repository = new TaskRepository();
+    @Inject
+    private TaskRepository repo;
 
     public TaskService(){
-
-    }
-
-    public void setConnection(@NotNull final Connection connection) {
-        repository.setConnection(connection);
     }
 
     public void createTask(@NotNull final Task task) {
-        if (task == null) {
-            return;
-        } else {
-            repository.add(task);
-        }
+        repo.save(task);
     }
 
     @Override
-    public Task getTask(@NotNull final String uid) throws IllegalArgumentException {
-        if (uid.isEmpty() || uid.equals(null)) {
-            throw new IllegalArgumentException();
+    @Nullable
+    public Task getTask(@NotNull final String uid){
+        if (uid.isEmpty()) {
+            return null;
         } else {
-            return repository.get(uid);
+            return repo.findBy(uid);
         }
     }
 
-    public List<Task> getAllTask() {
-        return repository.getAll();
+    @NotNull public List<Task> getAllTask() {
+        return repo.findAll();
     }
 
-    public void updateTask(@NotNull final String uid, @NotNull Task task) throws IllegalArgumentException {
-        if (uid.isEmpty() || uid.equals(null) || task.equals(null)) {
-            throw new IllegalArgumentException();
-        } else {
-            repository.updateTask(uid, task);
-        }
+    public void updateTask(@NotNull Task task){
+            repo.save(task);
     }
 
     @Override
-    public void mergeTask(@NotNull final List<Task> tasks) {
-        if (tasks == null) return;
-        repository.merge(tasks);
+    public void mergeTasks(@NotNull final List<Task> tasks) {
+        final List<Task> helperList = repo.findAll();
+        for (Task t: helperList) {
+            repo.remove(t);
+        }
+        for (Task t : tasks) {
+            repo.save(t);
+        }
     }
 
-    public void deleteTask(@NotNull final String uid) throws IllegalArgumentException {
-        if (uid.isEmpty() && uid.equals(null)) {
-            throw new IllegalArgumentException();
-        } else {
-            repository.delete(uid);
-        }
+    public void deleteTask(@NotNull final String uid) {
+            repo.remove(repo.findBy(uid));
     }
 
 }

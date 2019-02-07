@@ -65,7 +65,7 @@ public class Domain implements Serializable {
         final List<Assignment> projectTasks = domain.getProjectTasks();
         final List<Assignment> taskAssignees = domain.getTaskAssignees();
         bootstrap.getProjectService().mergeProject(projects);
-        bootstrap.getTaskService().mergeTask(tasks);
+        bootstrap.getTaskService().mergeTasks(tasks);
         bootstrap.getAssigneeService().mergeAssignee(assignees);
         bootstrap.getAssignmentService().mergeProjectAssigneesAssgnmnt(new ProjectAssigneeAssgnmt(), projectAssignees);
         bootstrap.getAssignmentService().mergeProjectTasksAssgnmnt(new ProjectTaskAssgnmnt(), projectTasks);

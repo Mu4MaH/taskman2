@@ -14,16 +14,18 @@ import java.util.Map;
 /*************************************/
 
 @ApplicationScoped
-public class AccessControlList {
+public class AccessControlList implements org.alex.api.repository.AccessControlList {
 
     public  AccessControlList() {}
 
     private final Map<String, String> acl = new HashMap<>();
 
+    @Override
     public String getObjectACL(@NotNull String uidWhere) {
         return acl.get(uidWhere);
     }
 
+    @Override
     public void setObjectACL(@NotNull String uidWhere, @NotNull String uidWho) {
         acl.put(uidWhere, uidWho);
     }

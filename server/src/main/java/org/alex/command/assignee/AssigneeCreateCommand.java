@@ -24,13 +24,13 @@ public class AssigneeCreateCommand extends AbstractCommand {
         final Assignee helperAss = new Assignee();
         System.out.print("Введите имя работника: ");
         helperAss.setName(bootstrap.getNextLine());
-        System.out.println("Введите логин пользователя");
+        System.out.print("Введите логин пользователя: ");
         helperAss.setLogin(bootstrap.getNextLine());
-        System.out.println("Введите пароль пользователя");
+        System.out.print("Введите пароль пользователя: ");
         helperAss.setPassword(bootstrap.getNextLine().hashCode());
         helperAss.setGroup("users");
         if (bootstrap.getAssigneeService().createAssignee(helperAss) == null) {
-            System.out.println("Такой пользователь уже существует");
+            System.out.println("Такой пользователь уже существует.");
             return;
         }
         System.out.println("Пользователь " + helperAss.getName() + " создан.");

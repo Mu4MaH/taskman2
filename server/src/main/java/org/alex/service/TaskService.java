@@ -15,11 +15,10 @@ import java.util.List;
 @Transactional
 public class TaskService implements ITaskService {
 
+    public TaskService(){}
+
     @Inject
     private TaskRepository repo;
-
-    public TaskService(){
-    }
 
     public void createTask(@NotNull final Task task) {
         repo.save(task);

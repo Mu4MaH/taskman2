@@ -1,10 +1,6 @@
 
 package org.alex.controller;
 
-import org.alex.api.service.IAccessControlService;
-import org.alex.api.service.IAssignmentService;
-import org.alex.api.service.IProjectService;
-import org.alex.api.service.ITaskService;
 import org.alex.command.AbstractCommand;
 import org.alex.command.HelpCommand;
 import org.alex.command.LogoutCommand;
@@ -34,10 +30,7 @@ import javax.inject.Inject;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 @ApplicationScoped
 public class Bootstrap {
@@ -51,10 +44,10 @@ public class Bootstrap {
 
 
     @Inject
-    private ITaskService taskService;
+    private TaskService taskService;
 
     @Inject
-    private IProjectService projectService;
+    private ProjectService projectService;
 
     @Inject
     private AuthorizationService authorizationService;
@@ -63,13 +56,11 @@ public class Bootstrap {
     private AssigneeService assigneeService;
 
     @Inject
-    private IAssignmentService assignmentService;
+    private AssignmentService assignmentService;
 
     @Inject
-    private IAccessControlService accessControlService;
+    private AccessControlService accessControlService;
 
-    @Inject
-    private HibernateLoader hibernateLoader;
 
     private final EndpointTask endpointTask = new EndpointTask(this);
     private final EndpointProject endpointProject = new EndpointProject(this);
@@ -90,17 +81,18 @@ public class Bootstrap {
     }
 
     {
-        AbstractCommand claz;
-        for (Class c : COMMANDS) {
-            claz = (AbstractCommand) c.newInstance();
-            commandMap.put(claz.getCommand(), claz);
-        }
-//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("tm2");
+
+//        List<Assignee> la = assigneeService.getAllAssignee();
 
 
     }
 
     public void init() throws Exception {
+        AbstractCommand claz;
+        for (Class c : COMMANDS) {
+            claz = (AbstractCommand) c.newInstance();
+            commandMap.put(claz.getCommand(), claz);
+        }
         authorize();
     }
 

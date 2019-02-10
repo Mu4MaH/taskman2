@@ -15,11 +15,10 @@ import java.util.List;
 @Transactional
 public class AssigneeService implements IAssigneeService {
 
-    public AssigneeService() {
-    }
+    public AssigneeService() {}
 
     @Inject
-    AssigneeRepository repository;
+    private AssigneeRepository repository;
 
     public Assignee createAssignee(@NotNull final Assignee assignee) {
         final List<Assignee> assignees = repository.findAll();
@@ -29,7 +28,7 @@ public class AssigneeService implements IAssigneeService {
                 return null;
             }
         }
-        this.repository.save(assignee);
+        repository.save(assignee);
         return assignee;
     }
 
